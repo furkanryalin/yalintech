@@ -1,0 +1,241 @@
+---
+interface FAQItem {
+  question: string;
+  answer: string;
+}
+
+const faqItems: FAQItem[] = [
+  {
+    question: 'Web sitesi geliştirme süreci ne kadar sürer?',
+    answer: 'Web sitesi geliştirme süreci projenin kapsamına göre değişiklik gösterir. Basit bir kurumsal web sitesi için genellikle 1-2 hafta, daha karmaşık projeler için 2-3 hafta sürebilir. Detaylı bir süre tahmini için projenizi birlikte değerlendirebiliriz.'
+  },
+  {
+    question: 'Fiyatlandırma nasıl yapılıyor?',
+    answer: 'Fiyatlandırma projenin kapsamı, özellikleri ve gereksinimlerine göre belirlenir. Her proje için özel bir teklif hazırlıyoruz. İhtiyaçlarınızı paylaştığınızda size uygun bir fiyat teklifi sunabiliriz.'
+  },
+  {
+    question: 'Hangi teknolojileri kullanıyorsunuz?',
+    answer: 'Modern ve güncel teknolojiler kullanıyoruz. React, TypeScript, Tailwind CSS, Node.js, Vue.js ve Nuxt.js gibi teknolojilerle profesyonel web siteleri geliştiriyoruz. Projenizin ihtiyaçlarına göre en uygun teknoloji yığınını seçiyoruz.'
+  },
+  {
+    question: 'Mevcut web sitemi güncelleyebilir misiniz?',
+    answer: 'Evet, mevcut web sitenizi modernize edebilir, yeni özellikler ekleyebilir veya tamamen yeniden tasarlayabiliriz. Mevcut sitenizi analiz edip size en uygun çözümü sunuyoruz.'
+  },
+  {
+    question: 'SEO optimizasyonu dahil mi?',
+    answer: 'Evet, geliştirdiğimiz tüm web sitelerinde temel SEO optimizasyonu yapıyoruz. Arama motorları için optimize edilmiş yapı, meta taglar, hızlı yükleme süreleri ve mobil uyumluluk gibi SEO best practice\'lerini uyguluyoruz.'
+  },
+  {
+    question: 'Destek ve bakım hizmeti veriyor musunuz?',
+    answer: 'Evet, web sitenizin yayınlandıktan sonra da sorunsuz çalışmaya devam etmesi için destek ve bakım hizmeti sunuyoruz. Güncellemeler, güvenlik yamaları, yedekleme ve teknik destek gibi hizmetlerimiz mevcuttur.'
+  },
+  {
+    question: 'Web sitesi responsive (mobil uyumlu) olacak mı?',
+    answer: 'Kesinlikle! Tüm web sitelerimiz mobil-first yaklaşımıyla geliştirilir ve tüm cihazlarda (telefon, tablet, masaüstü) mükemmel görünüm ve kullanım deneyimi sunar.'
+  },
+  {
+    question: 'Acil bir web sitesi ihtiyacım var, hızlı teslimat yapabilir misiniz?',
+    answer: 'Evet, acil projeler için hızlandırılmış geliştirme paketleri sunuyoruz. Projenizin aciliyet durumuna göre özel bir çalışma planı oluşturup, ekibimizi projenize odaklayarak kısa sürede teslimat yapabiliyoruz. Acil projeler için öncelikli destek ve hızlı iletişim kanalları sağlıyoruz. Detaylar için lütfen iletişime geçin.'
+  },
+  {
+    question: 'İçerik yönetimi sistemi (CMS) ekleyebilir misiniz?',
+    answer: 'Evet, içeriklerinizi kolayca güncelleyebilmeniz için CMS entegrasyonu yapabiliriz. Headless CMS çözümleri veya özel yönetim panelleri ile içeriklerinizi kendiniz yönetebilirsiniz.'
+  }
+];
+---
+
+<section class="container mx-auto px-4 sm:px-6 lg:px-8 py-24">
+  <div class="text-center mb-16 fade-in">
+    <h2 class="text-4xl md:text-5xl font-bold mb-4 text-gray-900 dark:text-white">
+      Sık Sorulan Sorular
+    </h2>
+    <p class="text-lg text-gray-600 dark:text-gray-400 max-w-2xl mx-auto">
+      Web sitesi geliştirme hakkında merak ettikleriniz
+    </p>
+  </div>
+
+  <div class="max-w-4xl mx-auto">
+    <div class="faq-timeline relative">
+      <!-- Timeline Line -->
+      <div class="absolute left-8 top-0 bottom-0 w-0.5 bg-gradient-to-b from-blue-brand via-blue-400 to-blue-brand dark:from-blue-400 dark:via-blue-500 dark:to-blue-400 opacity-20"></div>
+      
+      {faqItems.map((item, index) => (
+        <div 
+          class="faq-item relative mb-8 timeline-reveal"
+          data-index={index}
+        >
+          <!-- Timeline Dot -->
+          <div class="absolute left-6 w-4 h-4 rounded-full bg-blue-brand dark:bg-blue-400 border-4 border-white dark:border-gray-900 z-10 transition-all duration-300 group-hover:scale-125"></div>
+          
+          <!-- Content Card -->
+          <div class="ml-16 faq-card">
+            <button
+              class="faq-question w-full text-left bg-white dark:bg-gray-900 border border-gray-200 dark:border-gray-800 rounded-xl p-6 hover:border-blue-brand dark:hover:border-blue-400 transition-all duration-300 hover:shadow-lg group"
+              data-faq-index={index}
+              aria-expanded="false"
+            >
+              <div class="flex items-center justify-between gap-4">
+                <div class="flex items-center gap-4 flex-1">
+                  <span class="flex-shrink-0 w-8 h-8 rounded-full bg-blue-brand/10 dark:bg-blue-400/10 text-blue-brand dark:text-blue-400 flex items-center justify-center text-sm font-bold">
+                    {index + 1}
+                  </span>
+                  <h3 class="text-lg md:text-xl font-semibold text-gray-900 dark:text-white group-hover:text-blue-brand dark:group-hover:text-blue-400 transition-colors">
+                    {item.question}
+                  </h3>
+                </div>
+                <svg 
+                  class="faq-icon w-6 h-6 text-gray-400 dark:text-gray-500 flex-shrink-0 transition-transform duration-300"
+                  fill="none" 
+                  stroke="currentColor" 
+                  viewBox="0 0 24 24"
+                >
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7" />
+                </svg>
+              </div>
+            </button>
+            
+            <div 
+              class="faq-answer overflow-hidden"
+              data-faq-answer={index}
+            >
+              <div class="mt-4 ml-12 bg-gray-50 dark:bg-gray-800/50 border border-gray-200 dark:border-gray-700 rounded-lg p-6">
+                <p class="text-gray-600 dark:text-gray-400 leading-relaxed">
+                  {item.answer}
+                </p>
+              </div>
+            </div>
+          </div>
+        </div>
+      ))}
+    </div>
+  </div>
+</section>
+
+<style>
+  .faq-timeline {
+    padding-left: 2rem;
+  }
+
+  .faq-item {
+    opacity: 0;
+    transform: translateX(-30px);
+  }
+
+  .faq-item.visible {
+    opacity: 1;
+    transform: translateX(0);
+  }
+
+  .faq-answer {
+    max-height: 0;
+    transition: max-height 0.4s cubic-bezier(0.4, 0, 0.2, 1), opacity 0.3s ease;
+    opacity: 0;
+  }
+
+  .faq-answer.open {
+    max-height: 500px;
+    opacity: 1;
+  }
+
+  .faq-icon {
+    transform: rotate(0deg);
+  }
+
+  .faq-question[aria-expanded="true"] .faq-icon {
+    transform: rotate(180deg);
+  }
+
+  @media (max-width: 640px) {
+    .faq-timeline {
+      padding-left: 1rem;
+    }
+
+    .faq-item .faq-card {
+      margin-left: 2.5rem;
+    }
+
+    .faq-item .faq-answer > div {
+      margin-left: 0;
+    }
+  }
+</style>
+
+<script>
+  import { gsap } from 'gsap';
+  import { ScrollTrigger } from 'gsap/ScrollTrigger';
+
+  gsap.registerPlugin(ScrollTrigger);
+
+  // Timeline reveal animation
+  function initTimelineReveal() {
+    const faqItems = document.querySelectorAll('.faq-item');
+    
+    faqItems.forEach((item, index) => {
+      gsap.fromTo(item,
+        {
+          opacity: 0,
+          x: -30
+        },
+        {
+          opacity: 1,
+          x: 0,
+          duration: 0.6,
+          delay: index * 0.1,
+          ease: 'power2.out',
+          scrollTrigger: {
+            trigger: item,
+            start: 'top 85%',
+            toggleActions: 'play none none none',
+            once: true
+          }
+        }
+      );
+    });
+  }
+
+  // FAQ Accordion functionality
+  function initFAQAccordion() {
+    const faqQuestions = document.querySelectorAll('.faq-question');
+    
+    faqQuestions.forEach((question) => {
+      question.addEventListener('click', () => {
+        const index = question.getAttribute('data-faq-index');
+        const answer = document.querySelector(`[data-faq-answer="${index}"]`);
+        const isOpen = question.getAttribute('aria-expanded') === 'true';
+        
+        // Close all other FAQs
+        faqQuestions.forEach((q) => {
+          if (q !== question) {
+            const otherIndex = q.getAttribute('data-faq-index');
+            const otherAnswer = document.querySelector(`[data-faq-answer="${otherIndex}"]`);
+            q.setAttribute('aria-expanded', 'false');
+            if (otherAnswer) {
+              otherAnswer.classList.remove('open');
+            }
+          }
+        });
+        
+        // Toggle current FAQ
+        if (isOpen) {
+          question.setAttribute('aria-expanded', 'false');
+          answer?.classList.remove('open');
+        } else {
+          question.setAttribute('aria-expanded', 'true');
+          answer?.classList.add('open');
+        }
+      });
+    });
+  }
+
+  // Initialize on load
+  if (document.readyState === 'loading') {
+    document.addEventListener('DOMContentLoaded', () => {
+      initTimelineReveal();
+      initFAQAccordion();
+    });
+  } else {
+    initTimelineReveal();
+    initFAQAccordion();
+  }
+</script>
+

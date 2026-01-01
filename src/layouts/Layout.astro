@@ -1,0 +1,165 @@
+---
+import Header from '../components/Header.astro';
+import Footer from '../components/Footer.astro';
+import '../styles/global.css';
+
+interface Props {
+  title: string;
+  description?: string;
+}
+
+const { title, description = 'EfkyTech - Modern Web Sitesi Geliştirme' } = Astro.props;
+const canonicalURL = new URL(Astro.url.pathname, Astro.site || Astro.url.origin);
+---
+
+<!doctype html>
+<html lang="tr">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    
+    <!-- Favicons - EfkyTech Logo -->
+    <link rel="icon" type="image/png" sizes="32x32" href="/efkylogo.png" />
+    <link rel="icon" type="image/png" sizes="16x16" href="/efkylogo.png" />
+    <link rel="apple-touch-icon" sizes="180x180" href="/efkylogo.png" />
+    <link rel="manifest" href="/site.webmanifest" />
+    <meta name="generator" content={Astro.generator} />
+    <meta name="description" content={description} />
+    <title>{title} | EfkyTech</title>
+    <link rel="canonical" href={canonicalURL} />
+    
+    <!-- Open Graph / Facebook -->
+    <meta property="og:type" content="website" />
+    <meta property="og:url" content={canonicalURL} />
+    <meta property="og:title" content={`${title} | EfkyTech`} />
+    <meta property="og:description" content={description} />
+    
+    <!-- Twitter -->
+    <meta property="twitter:card" content="summary_large_image" />
+    <meta property="twitter:url" content={canonicalURL} />
+    <meta property="twitter:title" content={`${title} | EfkyTech`} />
+    <meta property="twitter:description" content={description} />
+    
+    <!-- Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet" />
+    
+    <!-- Additional Meta Tags -->
+    <meta name="author" content="Furkan R. Yalın" />
+    <meta name="robots" content="index, follow" />
+    <meta name="theme-color" content="#0070f3" />
+    
+    <!-- Preconnect to external domains -->
+    <link rel="dns-prefetch" href="https://fonts.googleapis.com" />
+    <link rel="dns-prefetch" href="https://fonts.gstatic.com" />
+    
+    <!-- AOS CSS: try unpkg, fall back to jsDelivr if blocked -->
+    <script is:inline>
+      (function() {
+        try {
+          var l = document.createElement('link');
+          l.rel = 'stylesheet';
+          l.href = 'https://unpkg.com/aos@2.3.1/dist/aos.css';
+          l.onerror = function() {
+            var l2 = document.createElement('link');
+            l2.rel = 'stylesheet';
+            l2.href = 'https://cdn.jsdelivr.net/npm/aos@2.3.1/dist/aos.css';
+            document.head.appendChild(l2);
+          };
+          document.head.appendChild(l);
+        } catch (e) {
+          console.warn('AOS CSS loader failed', e);
+        }
+      })();
+    </script>
+    
+    <script>
+      // Dark mode toggle - localStorage'dan tercihi oku
+      (function() {
+        const theme = localStorage.getItem('theme');
+        if (theme === 'dark' || (!theme && window.matchMedia('(prefers-color-scheme: dark)').matches)) {
+          document.documentElement.classList.add('dark');
+        }
+      })();
+    </script>
+  </head>
+  <body class="bg-white dark:bg-gray-950 text-gray-900 dark:text-white min-h-screen antialiased">
+    <Header />
+    <main>
+      <slot />
+    </main>
+    <Footer />
+    
+    <!-- AOS JS -->
+    <script is:inline>
+      // Ensure we're in browser context
+      if (typeof window !== 'undefined') {
+        // Load AOS after page load
+        window.addEventListener('load', function() {
+          const script = document.createElement('script');
+          script.src = 'https://unpkg.com/aos@2.3.1/dist/aos.js';
+          script.onload = function() {
+            // Check if AOS is available
+            if (window.AOS) {
+              window.AOS.init({
+                duration: 600,
+                easing: 'ease-out-cubic',
+                once: true,
+                offset: 100,
+                disable: 'mobile'
+              });
+            }
+          };
+          script.onerror = function() {
+            // Try jsDelivr fallback
+            console.warn('AOS failed to load from unpkg, trying jsDelivr...');
+            var alt = document.createElement('script');
+            alt.src = 'https://cdn.jsdelivr.net/npm/aos@2.3.1/dist/aos.js';
+            alt.onload = function() { if (window.AOS) window.AOS.init({ duration: 600, easing: 'ease-out-cubic', once: true, offset: 100, disable: 'mobile' }); };
+            alt.onerror = function() { console.warn('AOS failed to load from jsDelivr as well'); };
+            document.head.appendChild(alt);
+          };
+          document.head.appendChild(script);
+        });
+      }
+    </script>
+    
+    <!-- Lenis Smooth Scroll + GSAP ScrollTrigger -->
+    <script>
+      import Lenis from 'lenis';
+      import { gsap } from 'gsap';
+      import { ScrollTrigger } from 'gsap/ScrollTrigger';
+      
+      gsap.registerPlugin(ScrollTrigger);
+      
+      // Initialize Lenis smooth scroll
+      const lenis = new Lenis({
+        duration: 1.2,
+        easing: (t) => Math.min(1, 1.001 - Math.pow(2, -10 * t)),
+        orientation: 'vertical',
+        gestureOrientation: 'vertical',
+        smoothWheel: true,
+        wheelMultiplier: 1,
+        smoothTouch: false,
+        touchMultiplier: 2,
+        infinite: false,
+      });
+      
+      // Connect Lenis to GSAP ScrollTrigger
+      lenis.on('scroll', ScrollTrigger.update);
+      
+      gsap.ticker.add((time) => {
+        lenis.raf(time * 1000);
+      });
+      
+      gsap.ticker.lagSmoothing(0);
+      
+      // Make lenis available globally for page-specific scripts
+      if (typeof window !== 'undefined') {
+        (window as any).lenis = lenis;
+      }
+    </script>
+  </body>
+</html>
+

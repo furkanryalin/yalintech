@@ -1,0 +1,265 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  html {
+    font-family: 'Inter', system-ui, sans-serif;
+    scroll-behavior: smooth;
+  }
+  
+  body {
+    margin: 0;
+    padding: 0;
+  }
+  
+  * {
+    box-sizing: border-box;
+  }
+}
+
+@layer components {
+  /* Hover micro-interactions */
+  .hover-lift {
+    @apply transition-all duration-300 ease-out;
+  }
+  
+  .hover-lift:hover {
+    @apply -translate-y-1 shadow-lg;
+  }
+  
+  .hover-scale {
+    @apply transition-transform duration-300 ease-out;
+  }
+  
+  .hover-scale:hover {
+    @apply scale-105;
+  }
+  
+  /* Smooth transitions for interactive elements */
+  .interactive {
+    @apply transition-all duration-200 ease-out;
+  }
+  
+  .interactive:hover {
+    @apply opacity-90;
+  }
+
+  /* Magnetic button effect */
+  .magnetic-btn {
+    @apply relative transition-transform duration-300 ease-out;
+  }
+
+  /* Text reveal animation */
+  .text-reveal {
+    overflow: hidden;
+    position: relative;
+  }
+
+  .text-reveal-line {
+    display: inline-block;
+    overflow: hidden;
+  }
+
+  .text-reveal-char {
+    display: inline-block;
+    transform: translateY(100%);
+    transition: transform 0.6s cubic-bezier(0.16, 1, 0.3, 1);
+  }
+
+  .text-reveal-char.revealed {
+    transform: translateY(0);
+  }
+
+  /* Lightbox modal */
+  .lightbox-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: rgba(0, 0, 0, 0.9);
+    backdrop-filter: blur(10px);
+    z-index: 9999;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    opacity: 0;
+    visibility: hidden;
+    transition: opacity 0.3s ease, visibility 0.3s ease;
+  }
+
+  .lightbox-overlay.active {
+    opacity: 1;
+    visibility: visible;
+  }
+
+  .lightbox-content {
+    max-width: 90vw;
+    max-height: 90vh;
+    width: 100%;
+    padding: 2rem;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    transform: scale(0.8);
+    transition: transform 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+  }
+
+  .lightbox-overlay.active .lightbox-content {
+    transform: scale(1);
+  }
+
+  .lightbox-image {
+    max-width: 600px;
+    max-height: 600px;
+    width: auto;
+    height: auto;
+    object-fit: contain;
+    border-radius: 12px;
+    box-shadow: 0 20px 60px rgba(0, 0, 0, 0.5);
+  }
+
+  @media (max-width: 768px) {
+    .lightbox-image {
+      max-width: 90vw;
+      max-height: 70vh;
+    }
+    
+    .lightbox-content {
+      padding: 1rem;
+    }
+  }
+
+  .lightbox-close {
+    position: absolute;
+    top: 2rem;
+    right: 2rem;
+    width: 48px;
+    height: 48px;
+    background: rgba(255, 255, 255, 0.1);
+    border: 1px solid rgba(255, 255, 255, 0.2);
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    z-index: 10000;
+  }
+
+  .lightbox-close:hover {
+    background: rgba(255, 255, 255, 0.2);
+    transform: rotate(90deg);
+  }
+
+  /* Parallax Background Layers */
+  .parallax-bg-layer {
+    background: radial-gradient(circle at 20% 50%, rgba(0, 112, 243, 0.1) 0%, transparent 50%);
+    pointer-events: none;
+  }
+
+  .parallax-bg-layer-2 {
+    background: radial-gradient(circle at 80% 50%, rgba(0, 112, 243, 0.15) 0%, transparent 50%);
+    pointer-events: none;
+  }
+
+  /* Horizontal Scroll Gallery */
+  .projects-horizontal-section {
+    overflow: hidden;
+  }
+
+  .projects-pin-wrapper {
+    width: 100%;
+    overflow: hidden;
+  }
+
+  .projects-scroll-container {
+    width: 100%;
+    overflow-x: visible;
+  }
+
+  .projects-scroll-track {
+    display: flex;
+    gap: 2rem;
+    padding: 0 2rem;
+    will-change: transform;
+  }
+
+  .project-scroll-item {
+    flex: 0 0 auto;
+    width: min(500px, 90vw);
+    opacity: 0.5;
+    transform: scale(0.9);
+    transition: opacity 0.3s, transform 0.3s;
+  }
+
+  .project-scroll-item.active {
+    opacity: 1;
+    transform: scale(1);
+  }
+
+  /* Team Sticky Section */
+  .team-sticky-section {
+    position: relative;
+  }
+
+  .founder-card {
+    opacity: 0;
+    transform: translateY(80px) scale(0.9);
+    transform-style: preserve-3d;
+    perspective: 1000px;
+  }
+
+  /* Scrub Reveal */
+  .scrub-reveal {
+    opacity: 0;
+    transform: translateY(60px) scale(0.95);
+  }
+
+  /* Reduced motion support */
+  @media (prefers-reduced-motion: reduce) {
+    *,
+    *::before,
+    *::after {
+      animation-duration: 0.01ms !important;
+      animation-iteration-count: 1 !important;
+      transition-duration: 0.01ms !important;
+      scroll-behavior: auto !important;
+    }
+
+    .scrub-reveal,
+    .founder-card {
+      opacity: 1 !important;
+      transform: none !important;
+    }
+  }
+
+  /* Performance optimizations */
+  .magnetic-btn,
+  .scrub-reveal,
+  .founder-card {
+    will-change: transform;
+  }
+
+  /* Smooth scrollbar styling (if using custom scrollbar) */
+  ::-webkit-scrollbar {
+    width: 10px;
+  }
+
+  ::-webkit-scrollbar-track {
+    background: transparent;
+  }
+
+  ::-webkit-scrollbar-thumb {
+    background: rgba(0, 112, 243, 0.3);
+    border-radius: 5px;
+    transition: background 0.3s ease;
+  }
+
+  ::-webkit-scrollbar-thumb:hover {
+    background: rgba(0, 112, 243, 0.5);
+  }
+}
+

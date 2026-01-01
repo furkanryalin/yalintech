@@ -1,0 +1,717 @@
+---
+import Layout from '../layouts/Layout.astro';
+import ProjectCard from '../components/ProjectCard.astro';
+import TechStack from '../components/TechStack.astro';
+import FAQ from '../components/FAQ.astro';
+import Comments from '../components/Comments.astro';
+
+const featuredProjects = [
+  {
+    title: 'MYGOLD60 Factory Website',
+    description: 'Kurumsal fabrika yönetim web sitesi. Modern ve kullanıcı dostu arayüz ile fabrika operasyonlarını dijitalleştiren kapsamlı bir çözüm.',
+    githubUrl: 'https://github.com/habnetfurkan4-sketch/fabrika-site',
+    techStack: ['TypeScript', 'CSS', 'JavaScript'],
+    imageUrl: 'https://images.unsplash.com/photo-1460925895917-afdab827c52f?w=800&h=450&fit=crop',
+  },
+];
+---
+
+<Layout title="Ana Sayfa" description="EfkyTech - İnovatif teknoloji çözümleri sunan modern bir yazılım şirketi.">
+  <!-- Particle Network Background - Full Page -->
+  <canvas id="particles-canvas-full" class="fixed inset-0 w-full h-full opacity-30 dark:opacity-20 pointer-events-none" style="z-index: 0;"></canvas>
+  
+  <div class="pt-20 relative" style="z-index: 1;">
+    <!-- Hero Section with Parallax -->
+    <section data-particles="hero" class="hero-parallax relative overflow-hidden container mx-auto px-4 sm:px-6 lg:px-8 py-24 md:py-32 lg:py-40">
+      <!-- Parallax Background Layers -->
+      <div class="parallax-bg-layer absolute inset-0 opacity-5 dark:opacity-10" data-parallax="bg" style="z-index: 1;"></div>
+      <div class="parallax-bg-layer-2 absolute inset-0 opacity-10 dark:opacity-20" data-parallax="bg2" style="z-index: 1;"></div>
+      
+      <div class="text-center max-w-4xl mx-auto relative z-10" style="z-index: 2;">
+        <h1 
+          class="hero-title text-6xl md:text-7xl lg:text-8xl font-bold mb-8 text-gray-900 dark:text-white leading-tight tracking-tight text-reveal"
+          data-parallax="title"
+        >
+          EfkyTech
+        </h1>
+        <p 
+          class="hero-subtitle text-2xl md:text-3xl lg:text-4xl text-gray-600 dark:text-gray-400 mb-6 font-light text-reveal"
+          data-parallax="subtitle"
+        >
+          Modern Web Sitesi Geliştirme
+        </p>
+        <p 
+          class="hero-description text-lg md:text-xl text-gray-500 dark:text-gray-500 mb-12 text-reveal"
+          data-parallax="description"
+        >
+          Furkan R. Yalın & Emre Kınay – CEO'lar & Kurucular
+        </p>
+        <div 
+          class="flex flex-col sm:flex-row gap-4 justify-center hero-buttons"
+          data-parallax="buttons"
+        >
+          <a
+            href="/projects"
+            class="magnetic-btn px-8 py-4 bg-blue-brand hover:bg-blue-600 text-white rounded-lg font-semibold transition-all shadow-sm hover:shadow-md hover-lift"
+          >
+            Projeleri Keşfet
+          </a>
+          <a
+            href="/contact"
+            class="magnetic-btn px-8 py-4 bg-white dark:bg-gray-900 hover:bg-gray-50 dark:hover:bg-gray-800 border border-gray-300 dark:border-gray-700 text-gray-900 dark:text-white rounded-lg font-semibold transition-all hover-lift"
+          >
+            İletişime Geç
+          </a>
+        </div>
+      </div>
+    </section>
+
+    <!-- Intro Section -->
+    <section class="container mx-auto px-4 sm:px-6 lg:px-8 py-24">
+      <div class="max-w-3xl mx-auto text-center">
+        <h2 
+          class="text-4xl md:text-5xl font-bold mb-8 text-gray-900 dark:text-white split-text-reveal"
+        >
+          Hakkımızda
+        </h2>
+        <div 
+          class="space-y-6 text-lg text-gray-600 dark:text-gray-400 leading-relaxed"
+        >
+          <p class="split-text-reveal">
+            EfkyTech, modern ve profesyonel web siteleri geliştiren bir web geliştirme şirketidir. 
+            İşletmeniz için özel tasarlanmış, kullanıcı dostu ve performanslı web siteleri 
+            oluşturuyoruz.
+          </p>
+          <p class="split-text-reveal">
+            Kurumsal web siteleri, portföy siteleri ve özel web uygulamaları geliştiriyoruz. 
+            Modern teknolojiler ve yaratıcı tasarımlarla, işletmenizin dijital varlığını 
+            güçlendiriyoruz.
+          </p>
+        </div>
+      </div>
+    </section>
+
+    <!-- Tech Stack Section -->
+    <TechStack />
+
+    <!-- Featured Projects Section -->
+    <section data-particles="projects" class="container mx-auto px-4 sm:px-6 lg:px-8 py-24">
+      <div class="text-center mb-16 fade-up-reveal">
+        <h2 class="text-4xl md:text-5xl font-bold mb-4 text-gray-900 dark:text-white">
+          Öne Çıkan Projeler
+        </h2>
+        <p class="text-lg text-gray-600 dark:text-gray-400 max-w-2xl mx-auto">
+          En son geliştirdiğimiz web sitelerinden birkaçını keşfedin
+        </p>
+      </div>
+      
+      <div class="grid grid-cols-1 md:grid-cols-2 gap-8 max-w-5xl mx-auto zoom-reveal-items">
+        {featuredProjects.map((project, index) => (
+          <div>
+            <ProjectCard {...project} />
+          </div>
+        ))}
+      </div>
+      
+      <div class="text-center mt-16 fade-up-reveal">
+        <a
+          href="/projects"
+          class="magnetic-btn inline-flex items-center gap-2 px-6 py-3 bg-white dark:bg-gray-900 hover:bg-gray-50 dark:hover:bg-gray-800 border border-gray-300 dark:border-gray-700 text-gray-900 dark:text-white rounded-lg font-medium transition-all hover-lift"
+        >
+          Tüm Projeleri Görüntüle
+          <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 8l4 4m0 0l-4 4m4-4H3" />
+          </svg>
+        </a>
+      </div>
+    </section>
+
+    <!-- FAQ Section -->
+    <FAQ />
+
+    <!-- Customer Reviews Section -->
+    <section class="container mx-auto px-4 sm:px-6 lg:px-8 py-24">
+      <div class="text-center mb-16 fade-in">
+        <h2 class="text-4xl md:text-5xl font-bold mb-4 text-gray-900 dark:text-white">
+          Müşteri Yorumları
+        </h2>
+        <p class="text-lg text-gray-600 dark:text-gray-400 max-w-2xl mx-auto">
+          Hizmetlerimizden memnun kalan müşterilerimizin yorumları
+        </p>
+      </div>
+      
+      <div class="max-w-4xl mx-auto">
+        <Comments />
+      </div>
+    </section>
+
+    <!-- CTA Section -->
+    <section data-particles="cta" class="container mx-auto px-4 sm:px-6 lg:px-8 py-24">
+      <div 
+        class="max-w-3xl mx-auto text-center bg-gray-50 dark:bg-gray-900 border border-gray-200 dark:border-gray-800 rounded-2xl p-12 md:p-16 fade-up-reveal"
+      >
+        <h2 class="text-4xl md:text-5xl font-bold mb-6 text-gray-900 dark:text-white">
+          Web Sitenizi Hayata Geçirelim
+        </h2>
+        <p class="text-lg text-gray-600 dark:text-gray-400 mb-10 leading-relaxed">
+          Modern ve profesyonel web sitenizi birlikte tasarlayalım. 
+          Hemen iletişime geçin ve işletmeniz için en uygun web sitesi çözümünü birlikte bulalım.
+        </p>
+        <div class="flex flex-col sm:flex-row gap-4 justify-center">
+          <a
+            href="/contact"
+            class="magnetic-btn px-8 py-4 bg-blue-brand hover:bg-blue-600 text-white rounded-lg font-semibold transition-all shadow-sm hover:shadow-md hover-lift"
+          >
+            İletişime Geç
+          </a>
+          <a
+            href="/projects"
+            class="magnetic-btn px-8 py-4 bg-white dark:bg-gray-900 hover:bg-gray-50 dark:hover:bg-gray-800 border border-gray-300 dark:border-gray-700 text-gray-900 dark:text-white rounded-lg font-semibold transition-all hover-lift"
+          >
+            Projelerimizi İncele
+          </a>
+        </div>
+      </div>
+    </section>
+  </div>
+</Layout>
+
+<script>
+  import { gsap } from 'gsap';
+  import { ScrollTrigger } from 'gsap/ScrollTrigger';
+  import { 
+    initHeroParallax, 
+    initMagneticButtons, 
+    initSplitTextReveal,
+    initZoomReveal,
+    initFadeUpReveal
+  } from '../scripts/animations';
+  
+  gsap.registerPlugin(ScrollTrigger);
+
+  // Particle Network Background - Full Page
+  function initParticleNetwork() {
+    const canvas = document.getElementById('particles-canvas-full') as HTMLCanvasElement;
+    if (!canvas) return;
+
+    const ctx = canvas.getContext('2d');
+    if (!ctx) return;
+
+    // Worker flags (declare early to avoid TDZ)
+    let useWorker = typeof Worker !== 'undefined' && typeof URL !== 'undefined';
+    let particleWorker: Worker | null = null;
+    let workerStarted = false;
+
+    // Set canvas size - full viewport
+    function resizeCanvas() {
+      canvas.width = window.innerWidth;
+      canvas.height = window.innerHeight;
+      // inform worker about canvas size change
+      if (workerStarted && particleWorker) particleWorker.postMessage({ type: 'resize', width: canvas.width, height: canvas.height });
+    }
+    resizeCanvas();
+    window.addEventListener('resize', resizeCanvas);
+
+    // Configs per section
+    // Per-section presets with mobile-reduced counts and livelier desktop motion
+    const isMobile = window.innerWidth < 768;
+    const configs: Record<string, any> = {
+      hero: { count: isMobile ? 40 : 100, distance: isMobile ? 100 : 180, color: '#0070f3', alpha: 1, speed: isMobile ? 0.45 : 0.8 },
+      projects: { count: isMobile ? 25 : 70, distance: isMobile ? 90 : 140, color: '#0ea5e9', alpha: 0.85, speed: isMobile ? 0.32 : 0.45 },
+      cta: { count: isMobile ? 15 : 50, distance: isMobile ? 70 : 110, color: '#2563eb', alpha: 0.65, speed: isMobile ? 0.22 : 0.35 },
+      default: { count: isMobile ? 30 : 60, distance: isMobile ? 80 : 120, color: '#0070f3', alpha: 0.6, speed: isMobile ? 0.3 : 0.5 }
+    };
+
+    // Enable or disable mouse attraction (can be controlled via env - PUBLIC_ENABLE_MOUSE_ATTRACT)
+    let enableMouseAttract = (import.meta.env.PUBLIC_ENABLE_MOUSE_ATTRACT === 'true');
+    // Enable particle debug mode via env - PUBLIC_PARTICLE_DEBUG (dev-only features like overlay and logs)
+    const enableParticleDebug = (import.meta.env.PUBLIC_PARTICLE_DEBUG === 'true');
+    // Live tuning UI removed (was dev-only)
+
+    // Pause/resume & performance mode (toggleable UI)
+    let isPaused = false;
+    let performanceMode = 'normal';
+
+    // Particle class
+    class Particle {
+      x: number;
+      y: number;
+      vx: number;
+      vy: number;
+      radius: number;
+
+      constructor(private speedFactor = 0.6) {
+        this.x = Math.random() * canvas.width;
+        this.y = Math.random() * canvas.height;
+        const base = (speedFactor || currentConfig.speed || 0.6) * 1.6;
+        this.vx = (Math.random() - 0.5) * base;
+        this.vy = (Math.random() - 0.5) * base;
+        this.radius = Math.random() * 2 + 1;
+      }
+
+      update() {
+        // Attraction to mouse
+        const dx = mouseX - this.x;
+        const dy = mouseY - this.y;
+        const dist = Math.sqrt(dx * dx + dy * dy);
+        if (enableMouseAttract && dist < mouseRadius && dist > 0) {
+          const strength = (1 - dist / mouseRadius) * 0.12 * (currentConfig.speed || 0.4);
+          this.vx += (dx / dist) * strength;
+          this.vy += (dy / dist) * strength;
+        }
+
+        // Apply velocity and small damping
+        this.x += this.vx;
+        this.y += this.vy;
+        // Reduced damping so motion decays slower (keeps particles livelier)
+        this.vx *= 0.988;
+        this.vy *= 0.988;
+
+        // Slight continuous jitter (Brownian motion) so particles never fully stop
+        // Increased jitter for more visible, gentle motion across presets
+        const jitterStrength = (currentConfig.speed || 0.4) * 0.06;
+        this.vx += (Math.random() - 0.5) * jitterStrength;
+        this.vy += (Math.random() - 0.5) * jitterStrength;
+
+        // Boundaries
+        if (this.x < -50) this.x = canvas.width + 50;
+        if (this.x > canvas.width + 50) this.x = -50;
+        if (this.y < -50) this.y = canvas.height + 50;
+        if (this.y > canvas.height + 50) this.y = -50;
+      }
+
+      draw(color: string) {
+        // Minimal rendering: no glow, no shadow
+        ctx.beginPath();
+        ctx.arc(this.x, this.y, this.radius, 0, Math.PI * 2);
+        ctx.fillStyle = color;
+        ctx.fill();
+      }
+    }
+
+    // Dynamic particle state
+    let currentConfig = { ...configs.default };
+    let particles: Particle[] = [];
+
+    // Worker integration handled above (worker flags declared earlier)
+
+    function ensureParticleCount(target: number) {
+      const diff = target - particles.length;
+      if (diff > 0) {
+        for (let i = 0; i < diff; i++) {
+          particles.push(new Particle(currentConfig.speed));
+        }
+      } else if (diff < 0) {
+        particles = particles.slice(0, target);
+      }
+
+      // notify worker of new count when active
+      try {
+        if (workerStarted && particleWorker) {
+          particleWorker.postMessage({ type: 'setCount', count: Math.round(target) });
+        }
+      } catch (err) {
+        // ignore if worker not ready
+      }
+    }
+
+    // Init with default
+    ensureParticleCount(Math.round(currentConfig.count));
+
+    // Mouse position
+    let mouseX = -1000;
+    let mouseY = -1000;
+    let mouseRadius = 120;
+
+    function startWorkerIfNeeded() {
+      if (!useWorker) return;
+      try {
+        particleWorker = new Worker(new URL('../scripts/particle-worker.ts', import.meta.url), { type: 'module' });
+
+        particleWorker.addEventListener('message', (e) => {
+          const msg = e.data;
+          if (!msg) return;
+          if (msg.type === 'positions' && ArrayBuffer.isView(msg.positions)) {
+            // copy positions into current particles for rendering
+            const pos = msg.positions as Float32Array;
+            const n = Math.min(particles.length, pos.length / 2);
+            for (let i = 0; i < n; i++) {
+              particles[i].x = pos[2 * i];
+              particles[i].y = pos[2 * i + 1];
+            }
+          }
+        });
+
+        // send initial init
+        if (workerStarted === false && particleWorker) {
+          particleWorker.postMessage({ type: 'init', count: Math.round(currentConfig.count), width: canvas.width, height: canvas.height, config: { speed: currentConfig.speed, enableMouseAttract } });
+          workerStarted = true;
+        }
+      } catch (err) {
+        // Worker failed; fallback to main-thread physics silently
+        particleWorker = null;
+        useWorker = false;
+        workerStarted = false;
+      }
+    }
+
+    startWorkerIfNeeded();
+
+    // Debug overlay removed per performance request
+    let overlayEl: HTMLElement | null = null;
+
+    function setMousePosFromEvent(e: MouseEvent | TouchEvent) {
+      const rect = canvas.getBoundingClientRect();
+      if ((e as TouchEvent).touches && (e as TouchEvent).touches.length) {
+        mouseX = (e as TouchEvent).touches[0].clientX - rect.left;
+        mouseY = (e as TouchEvent).touches[0].clientY - rect.top;
+      } else if ((e as MouseEvent).clientX !== undefined) {
+        const me = e as MouseEvent;
+        mouseX = me.clientX - rect.left;
+        mouseY = me.clientY - rect.top;
+      }
+
+      // send mouse pos to worker (if active) to enable attraction on worker-side
+      if (workerStarted && particleWorker) {
+        particleWorker.postMessage({ type: 'mouse', x: mouseX, y: mouseY });
+      }
+    }
+
+    canvas.addEventListener('mousemove', setMousePosFromEvent);
+    canvas.addEventListener('touchstart', setMousePosFromEvent, { passive: true });
+    canvas.addEventListener('touchmove', setMousePosFromEvent, { passive: true });
+
+    canvas.addEventListener('mouseleave', () => {
+      mouseX = -1000;
+      mouseY = -1000;
+    });
+
+    // Apply config smoothly using GSAP
+    function applyConfig(name: string) {
+      const cfg = configs[name] || configs.default;
+
+      // Immediately set color so lines update smoothly
+      currentConfig.color = cfg.color;
+
+      // Tween numeric properties
+      gsap.to(currentConfig, {
+        count: cfg.count,
+        distance: cfg.distance,
+        alpha: cfg.alpha,
+        speed: cfg.speed,
+        duration: 0.8,
+        ease: 'power2.out',
+        onUpdate: () => {
+          ensureParticleCount(Math.round(currentConfig.count));
+          // inform worker about config changes
+          if (workerStarted && particleWorker) {
+            particleWorker.postMessage({ type: 'updateConfig', config: { speed: currentConfig.speed, enableMouseAttract } });
+          }
+
+        }
+      });
+    }
+
+    // Sections handling: determine nearest section to viewport center (more reliable than intersection for transitions)
+    const sections = Array.from(document.querySelectorAll('[data-particles]')) as HTMLElement[];
+
+    function getActiveSectionByViewportCenter() {
+      const viewportCenter = window.scrollY + window.innerHeight / 2;
+      let best: { name: string; delta: number } = { name: 'default', delta: Infinity };
+      sections.forEach((s) => {
+        const rect = s.getBoundingClientRect();
+        const mid = rect.top + window.scrollY + rect.height / 2;
+        const delta = Math.abs(mid - viewportCenter);
+        if (delta < best.delta) best = { name: s.getAttribute('data-particles') || 'default', delta };
+      });
+      return best.name;
+    }
+
+    let lastActive = '';
+    function onScrollCheck() {
+      const active = getActiveSectionByViewportCenter();
+      if (active !== lastActive) {
+        lastActive = active;
+        applyConfig(active);
+      }
+    }
+
+    // Throttle with rAF
+    let ticking = false;
+    window.addEventListener('scroll', () => {
+      if (!ticking) {
+        ticking = true;
+        requestAnimationFrame(() => {
+          onScrollCheck();
+          ticking = false;
+        });
+      }
+    }, { passive: true });
+
+    function applyPerformanceMode(mode: string) {
+      if (mode === 'low') {
+        gsap.to(currentConfig, {
+          count: Math.max(10, Math.round((currentConfig.count || 60) * 0.45)),
+          distance: (currentConfig.distance || 120) * 0.7,
+          speed: (currentConfig.speed || 0.4) * 0.55,
+          duration: 0.5,
+          ease: 'power2.out',
+          onUpdate: () => ensureParticleCount(Math.round(currentConfig.count))
+        });
+      } else {
+        // restore to the active section's preset
+        applyConfig(lastActive || 'hero');
+      }
+    }
+
+    // Respect prefers-reduced-motion (accessibility)
+    const reduceQuery = (window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)')) || null;
+    function handleReducedMotionChange(e: MediaQueryList | MediaQueryListEvent) {
+      if ((e as MediaQueryList).matches) {
+        performanceMode = 'low';
+        applyPerformanceMode('low');
+        // Keep animation running but reduce motion; if you prefer to completely pause, set isPaused = true;
+        isPaused = false;
+      } else {
+        performanceMode = 'normal';
+        applyPerformanceMode('normal');
+      }
+    }
+
+    if (reduceQuery) {
+      // initial state
+      if (reduceQuery.matches) handleReducedMotionChange(reduceQuery);
+      // listen for changes
+      try {
+        reduceQuery.addEventListener('change', handleReducedMotionChange as EventListener);
+      } catch (err) {
+        // Fallback for older browsers
+        (reduceQuery as any).addListener(handleReducedMotionChange);
+      }
+    }
+
+    // Auto-detect battery/connection/CPU constraints and apply low-performance mode when needed
+    let autoLowModeActive = false;
+    async function detectPerformanceConstraints() {
+      try {
+        // Battery API
+        if ((navigator as any).getBattery) {
+          const bat: any = await (navigator as any).getBattery();
+          const lowBattery = !bat.charging && bat.level !== undefined && bat.level <= 0.20;
+          if (lowBattery) {
+            autoLowModeActive = true;
+            applyPerformanceMode('low');
+            return;
+          }
+
+          // Listen for battery changes
+          bat.addEventListener('levelchange', () => {
+            if (!bat.charging && bat.level <= 0.20) { autoLowModeActive = true; applyPerformanceMode('low'); }
+            else if (bat.charging || bat.level > 0.30) { if (autoLowModeActive) { autoLowModeActive = false; applyPerformanceMode('normal'); } }
+          });
+        }
+
+        // Network info (effectiveType: 'slow-2g','2g','3g','4g')
+        const nav: any = navigator;
+        if (nav.connection && nav.connection.effectiveType) {
+          const t = nav.connection.effectiveType;
+          if (t === '2g' || t === 'slow-2g') {
+            autoLowModeActive = true;
+            applyPerformanceMode('low');
+            return;
+          }
+          nav.connection.addEventListener('change', () => {
+            const tt = nav.connection.effectiveType;
+            if (tt === '2g' || tt === 'slow-2g') { autoLowModeActive = true; applyPerformanceMode('low'); }
+            else if (autoLowModeActive) { autoLowModeActive = false; applyPerformanceMode('normal'); }
+          });
+        }
+
+        // Device capabilities heuristics
+        const devMem: any = (navigator as any).deviceMemory || 4;
+        const cpu = (navigator as any).hardwareConcurrency || 4;
+        if (devMem <= 2 || cpu <= 2) {
+          autoLowModeActive = true;
+          applyPerformanceMode('low');
+          return;
+        }
+      } catch (err) {
+        // ignore detection errors and default to normal
+        console.warn('[particles] performance detection failed', err);
+      }
+    }
+
+    // Run detection once at start
+    detectPerformanceConstraints();
+
+    // Draw connections (optimized with uniform grid spatial partitioning)
+    function hexToRgb(hex: string) {
+      hex = hex.replace('#','');
+      const r = parseInt(hex.substring(0,2),16);
+      const g = parseInt(hex.substring(2,4),16);
+      const b = parseInt(hex.substring(4,6),16);
+      return { r, g, b };
+    }
+
+    function drawConnections() {
+      const maxDist = currentConfig.distance || 120;
+      const alphaBase = currentConfig.alpha || 0.6;
+      const hex = (currentConfig.color || '#0070f3').replace('#','');
+      const { r, g, b } = hexToRgb(hex);
+
+      // simple, minimal connection drawing (no glow/shadow)
+      const baseLineWidth = 1;
+
+      const cellSize = Math.max(60, Math.ceil(maxDist));
+      const cols = Math.max(1, Math.ceil(canvas.width / cellSize));
+      const rows = Math.max(1, Math.ceil(canvas.height / cellSize));
+      const grid: number[][] = new Array(cols * rows);
+      for (let i = 0; i < grid.length; i++) grid[i] = [];
+
+      for (let i = 0; i < particles.length; i++) {
+        const p = particles[i];
+        const col = Math.min(cols - 1, Math.max(0, Math.floor(p.x / cellSize)));
+        const row = Math.min(rows - 1, Math.max(0, Math.floor(p.y / cellSize)));
+        grid[row * cols + col].push(i);
+      }
+
+      for (let row = 0; row < rows; row++) {
+        for (let col = 0; col < cols; col++) {
+          const cellParticles = grid[row * cols + col];
+          if (!cellParticles.length) continue;
+
+          for (let pi = 0; pi < cellParticles.length; pi++) {
+            const i = cellParticles[pi];
+            const p1 = particles[i];
+
+            for (let ro = Math.max(0, row - 1); ro <= Math.min(rows - 1, row + 1); ro++) {
+              for (let co = Math.max(0, col - 1); co <= Math.min(cols - 1, col + 1); co++) {
+                const neighbor = grid[ro * cols + co];
+                for (let nj = 0; nj < neighbor.length; nj++) {
+                  const j = neighbor[nj];
+                  if (j <= i) continue;
+                  const p2 = particles[j];
+                  const dx = p1.x - p2.x;
+                  const dy = p1.y - p2.y;
+                  const distance = Math.sqrt(dx * dx + dy * dy);
+
+                  if (distance < maxDist) {
+                    ctx.beginPath();
+                    const alpha = alphaBase * (1 - distance / maxDist);
+                    ctx.lineWidth = baseLineWidth;
+                    ctx.strokeStyle = `rgba(${r}, ${g}, ${b}, ${alpha})`;
+                    ctx.moveTo(p1.x, p1.y);
+                    ctx.lineTo(p2.x, p2.y);
+                    ctx.stroke();
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+
+      // Connect to mouse (fallback)
+      if (mouseX > -999) {
+        for (let i = 0; i < particles.length; i++) {
+          const dx = particles[i].x - mouseX;
+          const dy = particles[i].y - mouseY;
+          const distance = Math.sqrt(dx * dx + dy * dy);
+          if (distance < mouseRadius) {
+            ctx.beginPath();
+            const alpha = Math.max(0, 0.5 - (distance / mouseRadius) * 0.5);
+            ctx.lineWidth = baseLineWidth;
+            ctx.strokeStyle = `rgba(0, 112, 243, ${alpha})`;
+            ctx.moveTo(particles[i].x, particles[i].y);
+            ctx.lineTo(mouseX, mouseY);
+            ctx.stroke();
+          }
+        }
+      }
+    }
+
+    // Set paused state and notify worker
+    function setPausedState(p) {
+      isPaused = !!p;
+      if (workerStarted && particleWorker) particleWorker.postMessage({ type: 'paused', paused: isPaused });
+    }
+
+    // Debug helpers
+    let lastFrameTime = performance.now();
+    let fps = 0;
+    let frameCount = 0;
+    let lastOverlayUpdate = 0;
+    let prevPositions: Float32Array | null = null;
+
+    // Animation loop
+    function animate() {
+      const now = performance.now();
+      const dt = now - lastFrameTime;
+      lastFrameTime = now;
+      fps = 1000 / dt;
+      frameCount++;
+
+      ctx.clearRect(0, 0, canvas.width, canvas.height);
+
+      if (!isPaused) {
+        if (workerStarted && particleWorker) {
+          // Worker drives positions; just render current particle positions
+          particles.forEach(particle => {
+            particle.draw(currentConfig.color);
+          });
+          drawConnections();
+        } else {
+          particles.forEach(particle => {
+            particle.update();
+            particle.draw(currentConfig.color);
+          });
+          drawConnections();
+        }
+      } else {
+        // When paused, still render static frame so UI isn't blank
+        particles.forEach(particle => {
+          particle.draw(currentConfig.color);
+        });
+        drawConnections();
+      }
+
+
+
+      requestAnimationFrame(animate);
+    }
+
+    animate();
+
+    // Start with hero config and initial check
+    applyConfig('hero');
+    // Initial scroll check
+    onScrollCheck();
+
+    // Cleanup worker on page unload
+    window.addEventListener('beforeunload', () => {
+      if (particleWorker) {
+        try { particleWorker.terminate(); } catch (e) {}
+      }
+    });
+
+  }
+
+  // Initialize all animations
+  function initAnimations() {
+    initHeroParallax();
+    initMagneticButtons();
+    initParticleNetwork();
+    // Split text reveal for intro section
+    initSplitTextReveal('.split-text-reveal');
+    // Zoom reveal for project cards
+    initZoomReveal('.zoom-reveal-items > div', 0.2);
+    // Fade up for CTAs
+    initFadeUpReveal('.fade-up-reveal');
+  }
+
+  if (document.readyState === 'loading') {
+    document.addEventListener('DOMContentLoaded', initAnimations);
+  } else {
+    initAnimations();
+  }
+</script>

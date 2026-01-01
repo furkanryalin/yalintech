@@ -1,0 +1,34 @@
+---
+import Layout from '../layouts/Layout.astro';
+---
+
+<Layout title="Sayfa Bulunamadı" description="Aradığınız sayfa bulunamadı.">
+  <div class="pt-20 min-h-screen flex items-center justify-center">
+    <div class="text-center max-w-2xl mx-auto px-4">
+      <h1 class="text-9xl font-bold text-blue-brand dark:text-blue-400 mb-4" data-aos="fade-up">
+        404
+      </h1>
+      <h2 class="text-4xl md:text-5xl font-bold mb-6 text-gray-900 dark:text-white" data-aos="fade-up" data-aos-delay="100">
+        Sayfa Bulunamadı
+      </h2>
+      <p class="text-xl text-gray-600 dark:text-gray-400 mb-8" data-aos="fade-up" data-aos-delay="200">
+        Aradığınız sayfa taşınmış veya silinmiş olabilir.
+      </p>
+      <div class="flex flex-col sm:flex-row gap-4 justify-center" data-aos="fade-up" data-aos-delay="300">
+        <a
+          href="/"
+          class="magnetic-btn px-8 py-4 bg-blue-brand hover:bg-blue-600 text-white rounded-lg font-semibold transition-all shadow-sm hover:shadow-md hover-lift"
+        >
+          Ana Sayfaya Dön
+        </a>
+        <a
+          href="/contact"
+          class="magnetic-btn px-8 py-4 bg-white dark:bg-gray-900 hover:bg-gray-50 dark:hover:bg-gray-800 border border-gray-300 dark:border-gray-700 text-gray-900 dark:text-white rounded-lg font-semibold transition-all hover-lift"
+        >
+          İletişime Geç
+        </a>
+      </div>
+    </div>
+  </div>
+</Layout>
+

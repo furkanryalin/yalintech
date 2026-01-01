@@ -1,0 +1,238 @@
+---
+// Comments component - Yorumları görüntüleme ve yorum ekleme
+---
+
+<div class="comments-section">
+  <!-- Comments List -->
+  <div id="comments-container" class="space-y-6 mb-12">
+    <div class="text-center py-8 text-gray-500 dark:text-gray-400">
+      Yorumlar yükleniyor...
+    </div>
+  </div>
+
+  <!-- Add Comment Form (shows if logged in) -->
+  <div id="comment-form-container" class="hidden">
+    <div class="bg-white dark:bg-gray-800 rounded-xl p-6 border border-gray-200 dark:border-gray-700">
+      <h3 class="text-xl font-bold mb-4 text-gray-900 dark:text-white">Yorum Bırakın</h3>
+      <form id="comment-form" class="space-y-4">
+        <div>
+          <label for="comment-rating" class="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">
+            Puanınız (1-5)
+          </label>
+          <div class="flex gap-2" id="rating-stars">
+            {[1, 2, 3, 4, 5].map((star) => (
+              <button
+                type="button"
+                data-rating={star}
+                class="star-btn text-2xl text-gray-300 dark:text-gray-600 hover:text-yellow-400 transition-colors"
+              >
+                ★
+              </button>
+            ))}
+          </div>
+          <input type="hidden" id="comment-rating" name="rating" value="5" />
+        </div>
+        <div>
+          <label for="comment-text" class="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">
+            Yorumunuz
+          </label>
+          <textarea
+            id="comment-text"
+            name="comment"
+            rows="4"
+            required
+            class="w-full px-4 py-3 bg-white dark:bg-gray-900 border border-gray-300 dark:border-gray-700 rounded-lg text-gray-900 dark:text-white placeholder-gray-500 dark:placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-blue-brand focus:border-transparent transition-all resize-none"
+            placeholder="Yorumunuzu buraya yazın..."
+          ></textarea>
+        </div>
+        <button
+          type="submit"
+          class="w-full px-6 py-3 bg-blue-brand hover:bg-blue-600 text-white rounded-lg font-semibold transition-all shadow-sm hover:shadow-md"
+        >
+          Yorum Gönder
+        </button>
+      </form>
+    </div>
+  </div>
+
+  <!-- Login Prompt (shows if not logged in) -->
+  <div id="login-prompt" class="bg-gray-50 dark:bg-gray-800 rounded-xl p-6 border border-gray-200 dark:border-gray-700 text-center">
+    <p class="text-gray-600 dark:text-gray-400 mb-4">Yorum bırakmak için giriş yapın</p>
+    <button
+      id="login-btn"
+      class="px-6 py-3 bg-blue-brand hover:bg-blue-600 text-white rounded-lg font-semibold transition-all shadow-sm hover:shadow-md"
+    >
+      Giriş Yap / Kayıt Ol
+    </button>
+  </div>
+</div>
+
+<style>
+  .star-btn.active {
+    color: #fbbf24 !important; /* yellow-400 */
+  }
+</style>
+
+<script>
+  import { supabase } from '../lib/supabase-client';
+
+  let selectedRating = 5;
+
+  // Rating stars
+  document.querySelectorAll('.star-btn').forEach((btn, index) => {
+    btn.addEventListener('click', () => {
+      const rating = index + 1;
+      selectedRating = rating;
+      const ratingInput = document.getElementById('comment-rating') as HTMLInputElement;
+      if (ratingInput) ratingInput.value = rating.toString();
+      
+      // Update star colors
+      document.querySelectorAll('.star-btn').forEach((b, i) => {
+        if (i < rating) {
+          b.classList.add('active');
+        } else {
+          b.classList.remove('active');
+        }
+      });
+    });
+  });
+
+  // Initialize stars to 5
+  document.querySelectorAll('.star-btn').forEach((b, i) => {
+    if (i < 5) b.classList.add('active');
+  });
+
+  // Load comments
+  async function loadComments() {
+    const container = document.getElementById('comments-container');
+    if (!container) return;
+
+    try {
+      const response = await fetch('/api/comments');
+      const data = await response.json();
+
+      if (response.ok && data.comments) {
+        displayComments(data.comments);
+      } else {
+        container.innerHTML = '<div class="text-center py-8 text-gray-500 dark:text-gray-400">Yorum bulunamadı</div>';
+      }
+    } catch (error) {
+      console.error('Load comments error:', error);
+      container.innerHTML = '<div class="text-center py-8 text-red-500">Yorumlar yüklenemedi</div>';
+    }
+  }
+
+  // Display comments
+  function displayComments(comments: any[]) {
+    const container = document.getElementById('comments-container');
+    if (!container) return;
+
+    if (comments.length === 0) {
+      container.innerHTML = '<div class="text-center py-8 text-gray-500 dark:text-gray-400">Henüz yorum yok. İlk yorumu siz bırakın!</div>';
+      return;
+    }
+
+    container.innerHTML = comments.map((comment: any) => `
+      <div class="bg-white dark:bg-gray-800 rounded-xl p-6 border border-gray-200 dark:border-gray-700">
+        <div class="flex items-start justify-between mb-4">
+          <div>
+            <h4 class="text-lg font-semibold text-gray-900 dark:text-white">${escapeHtml(comment.name)}</h4>
+            <p class="text-sm text-gray-500 dark:text-gray-400">${escapeHtml(comment.email)}</p>
+          </div>
+          <div class="flex items-center gap-2">
+            ${comment.rating ? `
+              <div class="flex text-yellow-400">
+                ${Array.from({ length: comment.rating }, () => '★').join('')}
+              </div>
+            ` : ''}
+            <span class="text-xs text-gray-400 dark:text-gray-500">${new Date(comment.created_at).toLocaleDateString('tr-TR')}</span>
+          </div>
+        </div>
+        <p class="text-gray-700 dark:text-gray-300 whitespace-pre-wrap">${escapeHtml(comment.comment)}</p>
+      </div>
+    `).join('');
+  }
+
+  // Check auth status
+  async function checkAuth() {
+    try {
+      const { data: { session } } = await supabase.auth.getSession();
+
+      if (session) {
+        document.getElementById('comment-form-container')?.classList.remove('hidden');
+        document.getElementById('login-prompt')?.classList.add('hidden');
+      } else {
+        document.getElementById('comment-form-container')?.classList.add('hidden');
+        document.getElementById('login-prompt')?.classList.remove('hidden');
+      }
+    } catch (error) {
+      console.error('Auth check error:', error);
+    }
+  }
+
+  // Comment form submission
+  const commentForm = document.getElementById('comment-form') as HTMLFormElement;
+  commentForm?.addEventListener('submit', async (e) => {
+    e.preventDefault();
+    const formData = new FormData(commentForm);
+    const comment = formData.get('comment') as string;
+    const rating = parseInt(formData.get('rating') as string || '5');
+
+    try {
+      const { data: { session } } = await supabase.auth.getSession();
+
+      if (!session) {
+        alert('Giriş yapmanız gerekiyor');
+        window.location.href = '/login?return=' + encodeURIComponent(window.location.pathname);
+        return;
+      }
+
+      const response = await fetch('/api/comments', {
+        method: 'POST',
+        headers: { 
+          'Content-Type': 'application/json',
+          'Authorization': `Bearer ${session.access_token}`
+        },
+        body: JSON.stringify({ comment, rating }),
+      });
+
+      const data = await response.json();
+
+      if (response.ok && data.success) {
+        commentForm.reset();
+        selectedRating = 5;
+        document.querySelectorAll('.star-btn').forEach((b, i) => {
+          if (i < 5) b.classList.add('active');
+        });
+        loadComments();
+        alert('Yorumunuz gönderildi! Onaylandıktan sonra görünecek.');
+      } else {
+        alert(data.error || 'Yorum gönderilemedi');
+      }
+    } catch (error) {
+      console.error('Comment submission error:', error);
+      alert('Bir hata oluştu');
+    }
+  });
+
+  // Login button
+  document.getElementById('login-btn')?.addEventListener('click', () => {
+    window.location.href = '/login?return=' + encodeURIComponent(window.location.pathname);
+  });
+
+  // Escape HTML
+  function escapeHtml(text: string) {
+    const div = document.createElement('div');
+    div.textContent = text;
+    return div.innerHTML;
+  }
+
+  // Initialize
+  loadComments();
+  checkAuth();
+
+  // Listen for auth state changes
+  supabase.auth.onAuthStateChange((_event, session) => {
+    checkAuth();
+  });
+</script>

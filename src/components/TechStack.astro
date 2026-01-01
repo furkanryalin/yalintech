@@ -1,0 +1,97 @@
+---
+interface Tech {
+  name: string;
+  icon?: string;
+  imageUrl?: string;
+  color: string;
+  url: string;
+}
+
+const techStack: Tech[] = [
+  { 
+    name: 'React', 
+    imageUrl: '/react.png', 
+    color: 'from-blue-500 to-cyan-500',
+    url: 'https://react.dev'
+  },
+  { 
+    name: 'TypeScript', 
+    imageUrl: '/typescript.png', 
+    color: 'from-blue-600 to-blue-700',
+    url: 'https://www.typescriptlang.org'
+  },
+  { 
+    name: 'Tailwind CSS', 
+    imageUrl: '/tailwindcss.png', 
+    color: 'from-cyan-500 to-blue-500',
+    url: 'https://tailwindcss.com'
+  },
+  { 
+    name: 'Node.js', 
+    imageUrl: '/nodejs.svg', 
+    color: 'from-green-500 to-green-600',
+    url: 'https://nodejs.org'
+  },
+  { 
+    name: 'Vue.js', 
+    imageUrl: '/vuejs.png', 
+    color: 'from-green-400 to-emerald-500',
+    url: 'https://vuejs.org'
+  },
+  { 
+    name: 'Nuxt.js', 
+    imageUrl: '/nuxtjs.png', 
+    color: 'from-green-500 to-green-600',
+    url: 'https://nuxt.com'
+  },
+];
+---
+
+<section class="container mx-auto px-4 sm:px-6 lg:px-8 py-24">
+  <div class="text-center mb-16" data-aos="fade-up">
+    <h2 class="text-4xl md:text-5xl font-bold mb-4 text-gray-900 dark:text-white">
+      Teknoloji Yığınımız
+    </h2>
+    <p class="text-lg text-gray-600 dark:text-gray-400 max-w-2xl mx-auto">
+      Modern ve güvenilir teknolojilerle projelerinizi hayata geçiriyoruz
+    </p>
+  </div>
+  
+  <div class="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-6 gap-4 max-w-6xl mx-auto">
+    {techStack.map((tech, index) => (
+      <a
+        href={tech.url}
+        target="_blank"
+        rel="noopener noreferrer"
+        class="group relative bg-white dark:bg-gray-900 border border-gray-200 dark:border-gray-800 rounded-xl p-6 hover:border-blue-brand dark:hover:border-blue-400 transition-all duration-300 hover:shadow-lg hover:shadow-blue-500/10 hover:-translate-y-1 cursor-pointer"
+        data-aos="fade-up"
+        data-aos-delay={index * 50}
+        aria-label={`${tech.name} resmi sitesini ziyaret et`}
+      >
+        <div class="flex flex-col items-center justify-center text-center space-y-3">
+          {tech.imageUrl ? (
+            <div class="w-12 h-12 mb-2 group-hover:scale-110 transition-transform duration-300 flex items-center justify-center">
+              <img 
+                src={tech.imageUrl} 
+                alt={tech.name}
+                class="w-full h-full object-contain"
+                loading="lazy"
+              />
+            </div>
+          ) : tech.icon ? (
+            <div class="text-4xl mb-2 group-hover:scale-110 transition-transform duration-300">
+              {tech.icon}
+            </div>
+          ) : null}
+          <span class="text-sm font-medium text-gray-700 dark:text-gray-300 group-hover:text-blue-brand dark:group-hover:text-blue-400 transition-colors">
+            {tech.name}
+          </span>
+        </div>
+        
+        <!-- Subtle gradient overlay on hover -->
+        <div class="absolute inset-0 rounded-xl bg-gradient-to-br opacity-0 group-hover:opacity-5 transition-opacity duration-300 {tech.color} pointer-events-none"></div>
+      </a>
+    ))}
+  </div>
+</section>
+

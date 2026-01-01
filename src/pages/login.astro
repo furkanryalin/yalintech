@@ -1,0 +1,299 @@
+---
+import Layout from '../layouts/Layout.astro';
+---
+
+<Layout title="Giriş / Kayıt" description="EfkyTech hesabınıza giriş yapın veya yeni hesap oluşturun">
+  <div class="min-h-screen bg-gray-50 dark:bg-gray-900 pt-20 pb-12">
+    <div class="container mx-auto px-4 sm:px-6 lg:px-8 py-12">
+      <div class="max-w-md mx-auto">
+        <div class="bg-white dark:bg-gray-800 rounded-xl shadow-lg p-8">
+          <h1 class="text-3xl font-bold mb-2 text-gray-900 dark:text-white text-center">
+            Giriş Yap / Kayıt Ol
+          </h1>
+          <p class="text-gray-600 dark:text-gray-400 text-center mb-8">
+            Yorum bırakmak için hesap oluşturun
+          </p>
+
+          <!-- Tabs -->
+          <div class="flex border-b border-gray-200 dark:border-gray-700 mb-6">
+            <button
+              id="login-tab"
+              class="flex-1 py-3 px-4 text-center font-medium text-blue-brand border-b-2 border-blue-brand"
+            >
+              Giriş
+            </button>
+            <button
+              id="register-tab"
+              class="flex-1 py-3 px-4 text-center font-medium text-gray-500 dark:text-gray-400 border-b-2 border-transparent hover:text-gray-700 dark:hover:text-gray-300"
+            >
+              Kayıt
+            </button>
+          </div>
+
+          <!-- Login Form -->
+          <div id="login-form" class="space-y-4">
+            <div>
+              <label for="login-email" class="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">
+                E-posta
+              </label>
+              <input
+                type="email"
+                id="login-email"
+                required
+                class="w-full px-4 py-3 bg-white dark:bg-gray-900 border border-gray-300 dark:border-gray-700 rounded-lg text-gray-900 dark:text-white focus:outline-none focus:ring-2 focus:ring-blue-brand focus:border-transparent transition-all"
+                placeholder="ornek@email.com"
+              />
+            </div>
+            <div>
+              <label for="login-password" class="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">
+                Şifre
+              </label>
+              <input
+                type="password"
+                id="login-password"
+                required
+                class="w-full px-4 py-3 bg-white dark:bg-gray-900 border border-gray-300 dark:border-gray-700 rounded-lg text-gray-900 dark:text-white focus:outline-none focus:ring-2 focus:ring-blue-brand focus:border-transparent transition-all"
+                placeholder="Şifreniz"
+              />
+            </div>
+            <button
+              id="login-submit"
+              class="w-full px-6 py-3 bg-blue-brand hover:bg-blue-600 text-white rounded-lg font-semibold transition-all shadow-sm hover:shadow-md"
+            >
+              Giriş Yap
+            </button>
+            <div id="login-error" class="text-red-600 dark:text-red-400 text-sm hidden"></div>
+
+          </div> 
+
+          <!-- Register Form -->
+          <div id="register-form" class="hidden space-y-4">
+            <div>
+              <label for="register-name" class="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">
+                Ad Soyad
+              </label>
+              <input
+                type="text"
+                id="register-name"
+                required
+                class="w-full px-4 py-3 bg-white dark:bg-gray-900 border border-gray-300 dark:border-gray-700 rounded-lg text-gray-900 dark:text-white focus:outline-none focus:ring-2 focus:ring-blue-brand focus:border-transparent transition-all"
+                placeholder="Adınız Soyadınız"
+              />
+            </div>
+            <div>
+              <label for="register-email" class="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">
+                E-posta
+              </label>
+              <input
+                type="email"
+                id="register-email"
+                required
+                class="w-full px-4 py-3 bg-white dark:bg-gray-900 border border-gray-300 dark:border-gray-700 rounded-lg text-gray-900 dark:text-white focus:outline-none focus:ring-2 focus:ring-blue-brand focus:border-transparent transition-all"
+                placeholder="ornek@email.com"
+              />
+            </div>
+            <div>
+              <label for="register-password" class="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">
+                Şifre (min. 6 karakter)
+              </label>
+              <input
+                type="password"
+                id="register-password"
+                required
+                minLength={6}
+                class="w-full px-4 py-3 bg-white dark:bg-gray-900 border border-gray-300 dark:border-gray-700 rounded-lg text-gray-900 dark:text-white focus:outline-none focus:ring-2 focus:ring-blue-brand focus:border-transparent transition-all"
+                placeholder="Şifreniz"
+              />
+            </div>
+            <button
+              id="register-submit"
+              class="w-full px-6 py-3 bg-blue-brand hover:bg-blue-600 text-white rounded-lg font-semibold transition-all shadow-sm hover:shadow-md"
+            >
+              Kayıt Ol
+            </button>
+            <div id="register-error" class="text-red-600 dark:text-red-400 text-sm hidden"></div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</Layout>
+
+<script>
+  import { supabase } from '../lib/supabase-client';
+
+  // Email validation regex and Turkish error translation
+  const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+
+  function translateAuthError(err) {
+    // err can be supabase error object or Error
+    const status = err?.status;
+    const msg = (err?.message || err?.error_description || err?.error || '').toLowerCase();
+
+    // Specific cases
+    if (msg.includes('invalid') && msg.includes('email')) return 'Geçerli bir e-posta adresi giriniz.';
+    if (msg.includes('user not confirmed') || msg.includes('email not confirmed') || msg.includes('confirmation')) return 'E-posta adresiniz doğrulanmamış. Lütfen e-postanızı kontrol edin veya doğrulama e-postasını yeniden gönderin.';
+    if (msg.includes('already registered') || msg.includes('already exists') || msg.includes('user already')) return 'Bu e-posta ile zaten kayıtlı bir hesap var.';
+    if (msg.includes('password') && (msg.includes('length') || msg.includes('at least') || msg.includes('too short'))) return 'Şifre en az 6 karakter olmalıdır.';
+    if (msg.includes('invalid login') || msg.includes('invalid credentials') || msg.includes('invalid password') || msg.includes('invalid login credentials')) return 'E-posta veya şifre yanlış.';
+
+    // Network/status based messages
+    if (status === 400) return 'Giriş isteği hatalı (400). Lütfen e-posta ve şifrenizi kontrol edin.';
+    if (status === 401) return 'Yetkisiz erişim (401). Lütfen tekrar giriş yapın.';
+    if (status >= 500) return 'Sunucu hatası. Bir süre sonra tekrar deneyin.';
+
+    return err.message || 'Bir hata oluştu. Lütfen tekrar deneyin.';
+  }
+
+  // Tab switching
+  const loginTab = document.getElementById('login-tab');
+  const registerTab = document.getElementById('register-tab');
+  const loginForm = document.getElementById('login-form');
+  const registerForm = document.getElementById('register-form');
+
+  loginTab?.addEventListener('click', () => {
+    loginTab.classList.add('text-blue-brand', 'border-blue-brand');
+    loginTab.classList.remove('text-gray-500', 'dark:text-gray-400', 'border-transparent');
+    registerTab?.classList.remove('text-blue-brand', 'border-blue-brand');
+    registerTab?.classList.add('text-gray-500', 'dark:text-gray-400', 'border-transparent');
+    loginForm?.classList.remove('hidden');
+    registerForm?.classList.add('hidden');
+  });
+
+  registerTab?.addEventListener('click', () => {
+    registerTab.classList.add('text-blue-brand', 'border-blue-brand');
+    registerTab.classList.remove('text-gray-500', 'dark:text-gray-400', 'border-transparent');
+    loginTab?.classList.remove('text-blue-brand', 'border-blue-brand');
+    loginTab?.classList.add('text-gray-500', 'dark:text-gray-400', 'border-transparent');
+    registerForm?.classList.remove('hidden');
+    loginForm?.classList.add('hidden');
+  });
+
+  // Login
+  document.getElementById('login-submit')?.addEventListener('click', async () => {
+    const email = (document.getElementById('login-email') as HTMLInputElement)?.value;
+    const password = (document.getElementById('login-password') as HTMLInputElement)?.value;
+    const errorDiv = document.getElementById('login-error') as HTMLElement;
+
+    if (!email || !password) {
+      if (errorDiv) {
+        errorDiv.textContent = 'Lütfen tüm alanları doldurun';
+        errorDiv.classList.remove('hidden');
+      }
+      return;
+    }
+
+    try {
+      const { data, error } = await supabase.auth.signInWithPassword({
+        email,
+        password,
+      });
+
+      if (error) throw error;
+
+      if (data.user && data.session) {
+        // Check approval status
+        try {
+          const { data: profile, error: pError } = await supabase
+            .from('profiles')
+            .select('approved')
+            .eq('id', data.user.id)
+            .single();
+
+          if (pError && (pError as any).code !== 'PGRST205') {
+            throw pError;
+          }
+
+          if (profile && profile.approved === false) {
+            // Not approved yet — sign out and inform user
+            await supabase.auth.signOut();
+            if (errorDiv) {
+              errorDiv.textContent = 'Hesabınız admin onayı bekliyor. Onaylandıktan sonra giriş yapabilirsiniz.';
+              errorDiv.classList.remove('hidden');
+            }
+            return;
+          }
+
+          // Session is OK — redirect
+          const returnUrl = new URLSearchParams(window.location.search).get('return') || '/';
+          window.location.href = returnUrl;
+
+        } catch (err: any) {
+          console.error('Approval check error:', err);
+          // In case of error checking approval, allow login to proceed
+          const returnUrl = new URLSearchParams(window.location.search).get('return') || '/';
+          window.location.href = returnUrl;
+        }
+      }
+    } catch (error: any) {
+      console.error('Login error full:', error);
+      if (errorDiv) {
+        // Prefer supabase error details when available
+        const errMsg = translateAuthError(error?.data || error || {});
+        errorDiv.textContent = errMsg;
+        errorDiv.classList.remove('hidden');
+      }
+    }
+  });
+
+  // Register
+  document.getElementById('register-submit')?.addEventListener('click', async () => {
+    const name = (document.getElementById('register-name') as HTMLInputElement)?.value;
+    const email = (document.getElementById('register-email') as HTMLInputElement)?.value;
+    const password = (document.getElementById('register-password') as HTMLInputElement)?.value;
+    const errorDiv = document.getElementById('register-error') as HTMLElement;
+
+    if (!name || !email || !password) {
+      if (errorDiv) {
+        errorDiv.textContent = 'Lütfen tüm alanları doldurun';
+        errorDiv.classList.remove('hidden');
+      }
+      return;
+    }
+
+    if (!emailRegex.test(email)) {
+      if (errorDiv) {
+        errorDiv.textContent = 'Geçerli bir e-posta adresi giriniz.';
+        errorDiv.classList.remove('hidden');
+      }
+      return;
+    }
+
+    if (password.length < 6) {
+      if (errorDiv) {
+        errorDiv.textContent = 'Şifre en az 6 karakter olmalıdır';
+        errorDiv.classList.remove('hidden');
+      }
+      return;
+    }
+
+    try {
+      const res = await fetch('/api/auth/register', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ name, email, password })
+      });
+      const json = await res.json();
+      if (!res.ok) throw new Error(json.error || json.message || 'Kayıt başarısız');
+
+      // On success, inform user that admin approval is required
+      if (registerTab) registerTab.classList.remove('border-blue-brand');
+      if (document.getElementById('register-error')) {
+        const rErr = document.getElementById('register-error') as HTMLElement;
+        rErr.textContent = '';
+        rErr.classList.add('hidden');
+      }
+      alert(json.message || 'Kayıt başarılı! Hesabınız admin onayı bekliyor.');
+      // Pre-fill login email for convenience
+      const loginEmailInput = document.getElementById('login-email') as HTMLInputElement;
+      if (loginEmailInput) loginEmailInput.value = email;
+      loginTab?.click();
+    } catch (err: any) {
+      if (errorDiv) {
+        errorDiv.textContent = err.message || 'Kayıt başarısız';
+        errorDiv.classList.remove('hidden');
+      }
+    }
+  });
+</script>
+

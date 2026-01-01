@@ -1,0 +1,22 @@
+{
+  "name": "EfkyTech Portfolio",
+  "short_name": "EfkyTech",
+  "description": "EfkyTech - İnovatif Teknoloji Çözümleri",
+  "icons": [
+    {
+      "src": "/efkylogo.png",
+      "sizes": "192x192",
+      "type": "image/png"
+    },
+    {
+      "src": "/efkylogo.png",
+      "sizes": "512x512",
+      "type": "image/png"
+    }
+  ],
+  "theme_color": "#0070f3",
+  "background_color": "#ffffff",
+  "display": "standalone",
+  "start_url": "/"
+}
+

@@ -1,0 +1,626 @@
+---
+import Layout from '../../layouts/Layout.astro';
+---
+
+<Layout title="Admin Panel" description="EfkyTech Admin Panel">
+  <div class="min-h-screen bg-gray-50 dark:bg-gray-900 pt-20">
+    <div class="container mx-auto px-4 sm:px-6 lg:px-8 py-8">
+      <!-- Login Form (if not authenticated) -->
+      <div id="login-form" class="max-w-md mx-auto mt-20">
+        <div class="bg-white dark:bg-gray-800 rounded-xl shadow-lg p-8">
+          <h1 class="text-3xl font-bold mb-6 text-gray-900 dark:text-white text-center">
+            Admin Girişi
+          </h1>
+          <form id="admin-login" class="space-y-6">
+            <div>
+              <label for="password" class="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">
+                Şifre
+              </label>
+              <input
+                type="password"
+                id="password"
+                name="password"
+                required
+                class="w-full px-4 py-3 bg-white dark:bg-gray-900 border border-gray-300 dark:border-gray-700 rounded-lg text-gray-900 dark:text-white focus:outline-none focus:ring-2 focus:ring-blue-brand focus:border-transparent transition-all"
+                placeholder="Admin şifresi"
+              />
+            </div>
+            <button
+              type="submit"
+              class="w-full px-6 py-3 bg-blue-brand hover:bg-blue-600 text-white rounded-lg font-semibold transition-all shadow-sm hover:shadow-md"
+            >
+              Giriş Yap
+            </button>
+          </form>
+          <div id="login-error" class="mt-4 text-red-600 dark:text-red-400 text-sm hidden"></div>
+        </div>
+      </div>
+
+      <!-- Admin Dashboard (if authenticated) -->
+      <div id="admin-dashboard" class="hidden">
+        <div class="flex items-center justify-between mb-8">
+          <h1 class="text-4xl font-bold text-gray-900 dark:text-white">
+            Admin Panel
+          </h1>
+          <button
+            id="logout-btn"
+            class="px-4 py-2 bg-red-500 hover:bg-red-600 text-white rounded-lg font-medium transition-all"
+          >
+            Çıkış Yap
+          </button>
+        </div>
+
+        <!-- Stats -->
+        <div class="grid grid-cols-1 md:grid-cols-3 gap-6 mb-8">
+          <div class="bg-white dark:bg-gray-800 rounded-xl p-6 shadow">
+            <h3 class="text-sm font-medium text-gray-500 dark:text-gray-400 mb-2">Toplam Mesaj</h3>
+            <p id="total-messages" class="text-3xl font-bold text-gray-900 dark:text-white">0</p>
+          </div>
+          <div class="bg-white dark:bg-gray-800 rounded-xl p-6 shadow">
+            <h3 class="text-sm font-medium text-gray-500 dark:text-gray-400 mb-2">Okunmamış</h3>
+            <p id="unread-messages" class="text-3xl font-bold text-blue-brand dark:text-blue-400">0</p>
+          </div>
+          <div class="bg-white dark:bg-gray-800 rounded-xl p-6 shadow">
+            <h3 class="text-sm font-medium text-gray-500 dark:text-gray-400 mb-2">Okunmuş</h3>
+            <p id="read-messages" class="text-3xl font-bold text-green-600 dark:text-green-400">0</p>
+          </div>
+        </div>
+
+        <!-- Filters -->
+        <div class="bg-white dark:bg-gray-800 rounded-xl p-6 shadow mb-6">
+          <div class="flex flex-wrap gap-4">
+            <button
+              id="filter-all"
+              class="filter-btn px-4 py-2 bg-blue-brand text-white rounded-lg font-medium transition-all"
+              data-filter="all"
+            >
+              Tümü
+            </button>
+            <button
+              id="filter-unread"
+              class="filter-btn px-4 py-2 bg-gray-200 dark:bg-gray-700 text-gray-700 dark:text-gray-300 rounded-lg font-medium transition-all hover:bg-gray-300 dark:hover:bg-gray-600"
+              data-filter="unread"
+            >
+              Okunmamış
+            </button>
+            <button
+              id="filter-read"
+              class="filter-btn px-4 py-2 bg-gray-200 dark:bg-gray-700 text-gray-700 dark:text-gray-300 rounded-lg font-medium transition-all hover:bg-gray-300 dark:hover:bg-gray-600"
+              data-filter="read"
+            >
+              Okunmuş
+            </button>
+          </div>
+        </div>
+
+        <!-- Messages List -->
+        <div id="messages-container" class="space-y-4">
+          <div class="text-center py-12 text-gray-500 dark:text-gray-400">
+            <p>Yükleniyor...</p>
+          </div>
+        </div>
+
+        <!-- Users Section -->
+        <div class="mt-16">
+          <div class="flex items-center justify-between mb-8">
+            <h2 class="text-3xl font-bold text-gray-900 dark:text-white">
+              Kullanıcılar
+            </h2>
+            <div class="flex gap-2">
+              <button
+                id="users-filter-all"
+                class="users-filter-btn px-4 py-2 bg-blue-brand text-white rounded-lg font-medium transition-all"
+                data-filter="all"
+              >
+                Tümü
+              </button>
+              <button
+                id="users-filter-pending"
+                class="users-filter-btn px-4 py-2 bg-gray-200 dark:bg-gray-700 text-gray-700 dark:text-gray-300 rounded-lg font-medium transition-all hover:bg-gray-300 dark:hover:bg-gray-600"
+                data-filter="pending"
+              >
+                Bekleyen
+              </button>
+              <button
+                id="users-filter-approved"
+                class="users-filter-btn px-4 py-2 bg-gray-200 dark:bg-gray-700 text-gray-700 dark:text-gray-300 rounded-lg font-medium transition-all hover:bg-gray-300 dark:hover:bg-gray-600"
+                data-filter="approved"
+              >
+                Onaylanmış
+              </button>
+            </div>
+          </div>
+
+          <div id="users-container" class="space-y-4">
+            <div class="text-center py-12 text-gray-500 dark:text-gray-400">
+              <p>Yükleniyor...</p>
+            </div>
+          </div>
+        </div>
+
+        <!-- Comments Section -->
+        <div class="mt-16">
+          <div class="flex items-center justify-between mb-8">
+            <h2 class="text-3xl font-bold text-gray-900 dark:text-white">
+              Yorumlar
+            </h2>
+            <div class="flex gap-2">
+              <button
+                id="comments-filter-all"
+                class="comments-filter-btn px-4 py-2 bg-blue-brand text-white rounded-lg font-medium transition-all"
+                data-filter="all"
+              >
+                Tümü
+              </button>
+              <button
+                id="comments-filter-pending"
+                class="comments-filter-btn px-4 py-2 bg-gray-200 dark:bg-gray-700 text-gray-700 dark:text-gray-300 rounded-lg font-medium transition-all hover:bg-gray-300 dark:hover:bg-gray-600"
+                data-filter="pending"
+              >
+                Bekleyen
+              </button>
+              <button
+                id="comments-filter-approved"
+                class="comments-filter-btn px-4 py-2 bg-gray-200 dark:bg-gray-700 text-gray-700 dark:text-gray-300 rounded-lg font-medium transition-all hover:bg-gray-300 dark:hover:bg-gray-600"
+                data-filter="approved"
+              >
+                Onaylanmış
+              </button>
+            </div>
+          </div>
+
+          <div id="comments-container" class="space-y-4">
+            <div class="text-center py-12 text-gray-500 dark:text-gray-400">
+              <p>Yükleniyor...</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</Layout>
+
+<script>
+  // Check authentication on load
+  async function checkAuth() {
+    try {
+      const response = await fetch('/api/messages?limit=1');
+      if (response.ok) {
+        document.getElementById('login-form')?.classList.add('hidden');
+        document.getElementById('admin-dashboard')?.classList.remove('hidden');
+        loadMessages();
+        loadComments();
+      } else {
+        document.getElementById('login-form')?.classList.remove('hidden');
+        document.getElementById('admin-dashboard')?.classList.add('hidden');
+      }
+    } catch (error) {
+      console.error('Auth check error:', error);
+    }
+  }
+
+  // Login
+  const loginForm = document.getElementById('admin-login') as HTMLFormElement;
+  loginForm?.addEventListener('submit', async (e) => {
+    e.preventDefault();
+    const formData = new FormData(loginForm);
+    const password = formData.get('password') as string;
+
+    try {
+      const response = await fetch('/api/admin/login', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ password }),
+      });
+
+      const data = await response.json();
+
+      if (response.ok && data.success) {
+        document.getElementById('login-form')?.classList.add('hidden');
+        document.getElementById('admin-dashboard')?.classList.remove('hidden');
+        loadMessages();
+        loadComments();
+      } else {
+        const errorDiv = document.getElementById('login-error');
+        if (errorDiv) {
+          errorDiv.textContent = data.error || 'Giriş başarısız';
+          errorDiv.classList.remove('hidden');
+        }
+      }
+    } catch (error) {
+      console.error('Login error:', error);
+    }
+  });
+
+  // Logout
+  document.getElementById('logout-btn')?.addEventListener('click', async () => {
+    await fetch('/api/admin/login', { method: 'DELETE' });
+    document.getElementById('login-form')?.classList.remove('hidden');
+    document.getElementById('admin-dashboard')?.classList.add('hidden');
+  });
+
+  // Load messages
+  let currentFilter = 'all';
+  async function loadMessages(filter: string = 'all') {
+    currentFilter = filter;
+    const container = document.getElementById('messages-container');
+    if (!container) return;
+
+    container.innerHTML = '<div class="text-center py-12 text-gray-500 dark:text-gray-400"><p>Yükleniyor...</p></div>';
+
+    try {
+      const url = filter === 'all' 
+        ? '/api/messages' 
+        : `/api/messages?read=${filter === 'read'}`;
+      
+      const response = await fetch(url);
+      const data = await response.json();
+
+      if (response.ok && data.messages) {
+        displayMessages(data.messages);
+        updateStats(data.messages);
+      }
+    } catch (error) {
+      console.error('Load messages error:', error);
+      container.innerHTML = '<div class="text-center py-12 text-red-500"><p>Mesajlar yüklenemedi</p></div>';
+    }
+  }
+
+  // Display messages
+  function displayMessages(messages: any[]) {
+    const container = document.getElementById('messages-container');
+    if (!container) return;
+
+    if (messages.length === 0) {
+      container.innerHTML = '<div class="text-center py-12 text-gray-500 dark:text-gray-400"><p>Mesaj bulunamadı</p></div>';
+      return;
+    }
+
+    container.innerHTML = messages.map((msg: any) => `
+      <div class="bg-white dark:bg-gray-800 rounded-xl p-6 shadow ${!msg.read ? 'border-l-4 border-blue-brand' : ''}">
+        <div class="flex items-start justify-between mb-4">
+          <div>
+            <h3 class="text-lg font-semibold text-gray-900 dark:text-white">${escapeHtml(msg.name)}</h3>
+            <p class="text-sm text-gray-500 dark:text-gray-400">${escapeHtml(msg.email)}</p>
+            <p class="text-xs text-gray-400 dark:text-gray-500 mt-1">${new Date(msg.created_at).toLocaleString('tr-TR')}</p>
+          </div>
+          <div class="flex gap-2">
+            ${!msg.read ? `
+              <button 
+                onclick="markAsRead('${msg.id}')" 
+                class="px-3 py-1 bg-blue-100 dark:bg-blue-900 text-blue-700 dark:text-blue-300 rounded text-sm font-medium hover:bg-blue-200 dark:hover:bg-blue-800 transition-all"
+              >
+                Okundu İşaretle
+              </button>
+            ` : ''}
+            <button 
+              onclick="deleteMessage('${msg.id}')" 
+              class="px-3 py-1 bg-red-100 dark:bg-red-900 text-red-700 dark:text-red-300 rounded text-sm font-medium hover:bg-red-200 dark:hover:bg-red-800 transition-all"
+            >
+              Sil
+            </button>
+          </div>
+        </div>
+        <p class="text-gray-700 dark:text-gray-300 whitespace-pre-wrap">${escapeHtml(msg.message)}</p>
+      </div>
+    `).join('');
+  }
+
+  // Update stats
+  function updateStats(messages: any[]) {
+    const total = messages.length;
+    const unread = messages.filter((m: any) => !m.read).length;
+    const read = messages.filter((m: any) => m.read).length;
+
+    const totalEl = document.getElementById('total-messages');
+    const unreadEl = document.getElementById('unread-messages');
+    const readEl = document.getElementById('read-messages');
+
+    if (totalEl) totalEl.textContent = total.toString();
+    if (unreadEl) unreadEl.textContent = unread.toString();
+    if (readEl) readEl.textContent = read.toString();
+  }
+
+  // Mark as read
+  (window as any).markAsRead = async function(id: string) {
+    try {
+      const response = await fetch(`/api/messages/${id}`, {
+        method: 'PATCH',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ read: true }),
+      });
+
+      if (response.ok) {
+        loadMessages(currentFilter);
+      }
+    } catch (error) {
+      console.error('Mark as read error:', error);
+    }
+  };
+
+  // Delete message
+  (window as any).deleteMessage = async function(id: string) {
+    if (!confirm('Bu mesajı silmek istediğinize emin misiniz?')) return;
+
+    try {
+      const response = await fetch(`/api/messages/${id}`, {
+        method: 'DELETE',
+      });
+
+      if (response.ok) {
+        loadMessages(currentFilter);
+      }
+    } catch (error) {
+      console.error('Delete error:', error);
+    }
+  };
+
+  // Filter buttons
+  document.querySelectorAll('.filter-btn').forEach(btn => {
+    btn.addEventListener('click', () => {
+      const filter = btn.getAttribute('data-filter');
+      document.querySelectorAll('.filter-btn').forEach(b => {
+        b.classList.remove('bg-blue-brand', 'text-white');
+        b.classList.add('bg-gray-200', 'dark:bg-gray-700', 'text-gray-700', 'dark:text-gray-300');
+      });
+      btn.classList.add('bg-blue-brand', 'text-white');
+      btn.classList.remove('bg-gray-200', 'dark:bg-gray-700', 'text-gray-700', 'dark:text-gray-300');
+      if (filter) loadMessages(filter);
+    });
+  });
+
+  // Escape HTML
+  function escapeHtml(text: string) {
+    const div = document.createElement('div');
+    div.textContent = text;
+    return div.innerHTML;
+  }
+
+  // Users management
+  let currentUsersFilter = 'all';
+
+  async function loadUsers(filter: string = 'all') {
+    currentUsersFilter = filter;
+    const container = document.getElementById('users-container');
+    if (!container) return;
+
+    container.innerHTML = '<div class="text-center py-12 text-gray-500 dark:text-gray-400"><p>Yükleniyor...</p></div>';
+
+    try {
+      const response = await fetch('/api/admin/users');
+      const data = await response.json();
+
+      if (response.ok && data.users) {
+        let filtered = data.users;
+        if (filter === 'pending') {
+          filtered = data.users.filter((u: any) => !u.approved);
+        } else if (filter === 'approved') {
+          filtered = data.users.filter((u: any) => u.approved);
+        }
+        displayUsers(filtered);
+      }
+    } catch (error) {
+      console.error('Load users error:', error);
+      container.innerHTML = '<div class="text-center py-12 text-red-500"><p>Kullanıcılar yüklenemedi</p></div>';
+    }
+  }
+
+  function displayUsers(users: any[]) {
+    const container = document.getElementById('users-container');
+    if (!container) return;
+
+    if (users.length === 0) {
+      container.innerHTML = '<div class="text-center py-12 text-gray-500 dark:text-gray-400"><p>Kullanıcı bulunamadı</p></div>';
+      return;
+    }
+
+    container.innerHTML = users.map((u: any) => `
+      <div class="bg-white dark:bg-gray-800 rounded-xl p-6 border ${!u.approved ? 'border-yellow-500' : 'border-gray-200 dark:border-gray-700'}">
+        <div class="flex items-start justify-between mb-4">
+          <div>
+            <h4 class="text-lg font-semibold text-gray-900 dark:text-white">${escapeHtml(u.full_name || u.email)}</h4>
+            <p class="text-sm text-gray-500 dark:text-gray-400">${escapeHtml(u.email)}</p>
+            <p class="text-xs text-gray-400 dark:text-gray-500 mt-1">${new Date(u.created_at).toLocaleString('tr-TR')}</p>
+          </div>
+          <div class="flex items-center gap-2">
+            ${!u.approved ? `
+              <button 
+                onclick="approveUser('${u.id}')" 
+                class="px-3 py-1 bg-green-100 dark:bg-green-900 text-green-700 dark:text-green-300 rounded text-sm font-medium hover:bg-green-200 dark:hover:bg-green-800 transition-all"
+              >
+                Onayla
+              </button>
+            ` : ''}
+            <button 
+              onclick="deleteUser('${u.id}')" 
+              class="px-3 py-1 bg-red-100 dark:bg-red-900 text-red-700 dark:text-red-300 rounded text-sm font-medium hover:bg-red-200 dark:hover:bg-red-800 transition-all"
+            >
+              Sil
+            </button>
+          </div>
+        </div>
+      </div>
+    `).join('');
+  }
+
+  (window as any).approveUser = async function(id: string) {
+    try {
+      const response = await fetch(`/api/admin/users/${id}`, {
+        method: 'PATCH',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ approved: true }),
+      });
+
+      if (response.ok) {
+        loadUsers(currentUsersFilter);
+      }
+    } catch (error) {
+      console.error('Approve user error:', error);
+    }
+  };
+
+  (window as any).deleteUser = async function(id: string) {
+    if (!confirm('Bu kullanıcıyı silmek istediğinize emin misiniz?')) return;
+
+    try {
+      const response = await fetch(`/api/admin/users/${id}`, {
+        method: 'DELETE',
+      });
+
+      if (response.ok) {
+        loadUsers(currentUsersFilter);
+      }
+    } catch (error) {
+      console.error('Delete user error:', error);
+    }
+  };
+
+  // Comments management
+  let currentCommentsFilter = 'all';
+  
+  async function loadComments(filter: string = 'all') {
+    currentCommentsFilter = filter;
+    const container = document.getElementById('comments-container');
+    if (!container) return;
+
+    container.innerHTML = '<div class="text-center py-12 text-gray-500 dark:text-gray-400"><p>Yükleniyor...</p></div>';
+
+    try {
+      const response = await fetch('/api/admin/comments');
+      const data = await response.json();
+
+      if (response.ok && data.comments) {
+        let filteredComments = data.comments;
+        if (filter === 'pending') {
+          filteredComments = data.comments.filter((c: any) => !c.approved);
+        } else if (filter === 'approved') {
+          filteredComments = data.comments.filter((c: any) => c.approved);
+        }
+        displayComments(filteredComments);
+      }
+    } catch (error) {
+      console.error('Load comments error:', error);
+      container.innerHTML = '<div class="text-center py-12 text-red-500"><p>Yorumlar yüklenemedi</p></div>';
+    }
+  }
+
+  function displayComments(comments: any[]) {
+    const container = document.getElementById('comments-container');
+    if (!container) return;
+
+    if (comments.length === 0) {
+      container.innerHTML = '<div class="text-center py-12 text-gray-500 dark:text-gray-400"><p>Yorum bulunamadı</p></div>';
+      return;
+    }
+
+    container.innerHTML = comments.map((comment: any) => `
+      <div class="bg-white dark:bg-gray-800 rounded-xl p-6 border ${!comment.approved ? 'border-yellow-500' : 'border-gray-200 dark:border-gray-700'}">
+        <div class="flex items-start justify-between mb-4">
+          <div>
+            <h4 class="text-lg font-semibold text-gray-900 dark:text-white">${escapeHtml(comment.name)}</h4>
+            <p class="text-sm text-gray-500 dark:text-gray-400">${escapeHtml(comment.email)}</p>
+            <p class="text-xs text-gray-400 dark:text-gray-500 mt-1">${new Date(comment.created_at).toLocaleString('tr-TR')}</p>
+          </div>
+          <div class="flex items-center gap-2">
+            ${comment.rating ? `
+              <div class="flex text-yellow-400">
+                ${Array.from({ length: comment.rating }, () => '★').join('')}
+              </div>
+            ` : ''}
+            ${!comment.approved ? '<span class="px-2 py-1 bg-yellow-100 dark:bg-yellow-900 text-yellow-800 dark:text-yellow-200 rounded text-xs font-medium">Beklemede</span>' : ''}
+          </div>
+        </div>
+        <p class="text-gray-700 dark:text-gray-300 whitespace-pre-wrap mb-4">${escapeHtml(comment.comment)}</p>
+        <div class="flex gap-2">
+          ${!comment.approved ? `
+            <button 
+              onclick="approveComment('${comment.id}')" 
+              class="px-3 py-1 bg-green-100 dark:bg-green-900 text-green-700 dark:text-green-300 rounded text-sm font-medium hover:bg-green-200 dark:hover:bg-green-800 transition-all"
+            >
+              Onayla
+            </button>
+          ` : ''}
+          <button 
+            onclick="deleteComment('${comment.id}')" 
+            class="px-3 py-1 bg-red-100 dark:bg-red-900 text-red-700 dark:text-red-300 rounded text-sm font-medium hover:bg-red-200 dark:hover:bg-red-800 transition-all"
+          >
+            Sil
+          </button>
+        </div>
+      </div>
+    `).join('');
+  }
+
+  (window as any).approveComment = async function(id: string) {
+    try {
+      const response = await fetch(`/api/admin/comments/${id}`, {
+        method: 'PATCH',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ approved: true }),
+      });
+
+      if (response.ok) {
+        loadComments(currentCommentsFilter);
+      }
+    } catch (error) {
+      console.error('Approve comment error:', error);
+    }
+  };
+
+  (window as any).deleteComment = async function(id: string) {
+    if (!confirm('Bu yorumu silmek istediğinize emin misiniz?')) return;
+
+    try {
+      const response = await fetch(`/api/admin/comments/${id}`, {
+        method: 'DELETE',
+      });
+
+      if (response.ok) {
+        loadComments(currentCommentsFilter);
+      }
+    } catch (error) {
+      console.error('Delete comment error:', error);
+    }
+  };
+
+  // Users filter buttons
+  document.querySelectorAll('.users-filter-btn').forEach(btn => {
+    btn.addEventListener('click', () => {
+      const filter = btn.getAttribute('data-filter');
+      document.querySelectorAll('.users-filter-btn').forEach(b => {
+        b.classList.remove('bg-blue-brand', 'text-white');
+        b.classList.add('bg-gray-200', 'dark:bg-gray-700', 'text-gray-700', 'dark:text-gray-300');
+      });
+      btn.classList.add('bg-blue-brand', 'text-white');
+      btn.classList.remove('bg-gray-200', 'dark:bg-gray-700', 'text-gray-700', 'dark:text-gray-300');
+      if (filter) loadUsers(filter);
+    });
+  });
+
+  // Comments filter buttons
+  document.querySelectorAll('.comments-filter-btn').forEach(btn => {
+    btn.addEventListener('click', () => {
+      const filter = btn.getAttribute('data-filter');
+      document.querySelectorAll('.comments-filter-btn').forEach(b => {
+        b.classList.remove('bg-blue-brand', 'text-white');
+        b.classList.add('bg-gray-200', 'dark:bg-gray-700', 'text-gray-700', 'dark:text-gray-300');
+      });
+      btn.classList.add('bg-blue-brand', 'text-white');
+      btn.classList.remove('bg-gray-200', 'dark:bg-gray-700', 'text-gray-700', 'dark:text-gray-300');
+      if (filter) loadComments(filter);
+    });
+  });
+
+  // Initialize
+  checkAuth().then(() => {
+    // Check if authenticated and load comments & users
+    const loginForm = document.getElementById('login-form');
+    const adminDashboard = document.getElementById('admin-dashboard');
+    if (loginForm?.classList.contains('hidden') && adminDashboard && !adminDashboard.classList.contains('hidden')) {
+      loadMessages();
+      loadComments();
+      loadUsers();
+    }
+  });
+</script>
+
