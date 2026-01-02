@@ -38,8 +38,8 @@ export const POST: APIRoute = async ({ request }) => {
       from: emailFrom,
       to: email,
       subject: 'E-posta doğrulama hatırlatması',
-      text: `Merhaba,\n\nHesabınız için doğrulama maili gönderildi. Lütfen gelen kutunuzdaki doğrulama bağlantısını tıklayarak e-posta adresinizi onaylayın. Eğer doğrulama maili gelmediyse, spam klasörünü kontrol edin.\n\nTeşekkürler,\nEfkyTech`,
-      html: `<p>Merhaba,</p><p>Hesabınız için doğrulama maili gönderildi. Lütfen gelen kutunuzdaki doğrulama bağlantısını tıklayarak e-posta adresinizi onaylayın.</p><p>Eğer doğrulama maili gelmediyse, spam klasörünü kontrol edin veya bize ulaşın.</p><p>Teşekkürler,<br/>EfkyTech</p>`
+      text: `Merhaba,\n\nHesabınız için doğrulama maili gönderildi. Lütfen gelen kutunuzdaki doğrulama bağlantısını tıklayarak e-posta adresinizi onaylayın. Eğer doğrulama maili gelmediyse, spam klasörünü kontrol edin.\n\nTeşekkürler,\nYalın Tech`,
+      html: `<p>Merhaba,</p><p>Hesabınız için doğrulama maili gönderildi. Lütfen gelen kutunuzdaki doğrulama bağlantısını tıklayarak e-posta adresinizi onaylayın.</p><p>Eğer doğrulama maili gelmediyse, spam klasörünü kontrol edin veya bize ulaşın.</p><p>Teşekkürler,<br/>Yalın Tech</p>`
     };
 
     await transporter.sendMail(mailOptions);

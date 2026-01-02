@@ -1,6 +1,6 @@
-# EfkyTech Portfolio - Ücretsiz Yayınlama Rehberi
+# Yalın Tech Portfolio - Ücretsiz Yayınlama Rehberi
 
-Bu rehber, EfkyTech portfolio sitesini **tamamen ücretsiz** bir şekilde yayınlamak için adım adım talimatlar içerir.
+Bu rehber, Yalın Tech portfolio sitesini **tamamen ücretsiz** bir şekilde yayınlamak için adım adım talimatlar içerir.
 
 ## 🚀 Seçenek 1: Vercel (Önerilen - En Kolay)
 
@@ -10,14 +10,14 @@ Vercel, Astro projeleri için en kolay ve en hızlı deployment seçeneğidir.
 
 1. **GitHub'da yeni bir repository oluştur:**
    - https://github.com/new adresine git
-   - Repository adı: `efkytech-portfolio` (veya istediğin bir isim)
+   - Repository adı: `yalintech-portfolio` (veya istediğin bir isim)
    - Public veya Private seç (Public ücretsiz)
    - "Initialize this repository with a README" seçeneğini işaretleme
    - "Create repository" butonuna tıkla
 
 2. **Projeyi Git ile başlat ve GitHub'a yükle:**
    ```bash
-   cd /Users/furkanyalin/Desktop/efkyportfoy
+   cd /Users/furkanyalin/Desktop/yalintechportfoy
    
    # Git'i başlat (eğer henüz başlatılmadıysa)
    git init
@@ -32,10 +32,10 @@ Vercel, Astro projeleri için en kolay ve en hızlı deployment seçeneğidir.
    git add .
    
    # İlk commit
-   git commit -m "Initial commit: EfkyTech Portfolio"
+   git commit -m "Initial commit: Yalın Tech Portfolio"
    
    # GitHub repository'yi remote olarak ekle
-   git remote add origin https://github.com/KULLANICI_ADIN/efkytech-portfolio.git
+   git remote add origin https://github.com/KULLANICI_ADIN/yalintech-portfolio.git
    # (KULLANICI_ADIN yerine kendi GitHub kullanıcı adını yaz)
    
    # Ana branch'i main olarak ayarla
@@ -54,7 +54,7 @@ Vercel, Astro projeleri için en kolay ve en hızlı deployment seçeneğidir.
 
 2. **Yeni proje oluştur:**
    - Vercel dashboard'da "Add New..." → "Project" seç
-   - GitHub repository'ni seç (efkytech-portfolio)
+   - GitHub repository'ni seç (yalintech-portfolio)
    - "Import" butonuna tıkla
 
 3. **Build ayarları (otomatik algılanır):**
@@ -69,13 +69,13 @@ Vercel, Astro projeleri için en kolay ve en hızlı deployment seçeneğidir.
 5. **Deploy:**
    - "Deploy" butonuna tıkla
    - 1-2 dakika içinde siten yayında olacak!
-   - Vercel otomatik olarak bir URL verecek: `https://efkytech-portfolio.vercel.app`
+   - Vercel otomatik olarak bir URL verecek: `https://yalintech-portfolio.vercel.app`
 
 ### Adım 3: Custom Domain (İsteğe Bağlı)
 
 1. Vercel dashboard'da projene git
 2. "Settings" → "Domains" sekmesine git
-3. Domain'ini ekle (örnek: `efkytech.com`)
+3. Domain'ini ekle (örnek: `yalintech.com`)
 4. DNS ayarlarını domain sağlayıcından yap (Vercel talimatları verir)
 
 ---

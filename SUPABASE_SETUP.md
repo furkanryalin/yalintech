@@ -7,7 +7,7 @@
 3. GitHub hesabınla giriş yap (ücretsiz)
 4. "New Project" butonuna tıkla
 5. Proje bilgilerini doldur:
-   - **Name**: `efkytech-portfolio`
+  - **Name**: `yalintech-portfolio`
    - **Database Password**: Güçlü bir şifre oluştur (kaydet!)
    - **Region**: En yakın bölgeyi seç
 6. "Create new project" butonuna tıkla

@@ -38,7 +38,7 @@ export function approvalEmailHtml(fullName: string | null, siteUrl = '/login') {
           <table width="600" cellpadding="0" cellspacing="0" role="presentation" style="background:#ffffff;border-radius:8px;overflow:hidden;box-shadow:0 6px 18px rgba(12,32,61,0.08);">
             <tr style="background:linear-gradient(90deg,#0ea5e9,#2563eb); color:#fff;">
               <td style="padding:28px;text-align:center;">
-                <h1 style="margin:0;font-size:22px;">EfkyTech</h1>
+                <h1 style="margin:0;font-size:22px;">Yalın Tech</h1>
               </td>
             </tr>
             <tr>
@@ -52,7 +52,7 @@ export function approvalEmailHtml(fullName: string | null, siteUrl = '/login') {
               </td>
             </tr>
             <tr>
-              <td style="background:#f1f5f9;padding:14px;text-align:center;color:#94a3b8;font-size:13px;">EfkyTech • <a href="/" style="color:#2563eb;text-decoration:none;">efkytech.com</a></td>
+              <td style="background:#f1f5f9;padding:14px;text-align:center;color:#94a3b8;font-size:13px;">Yalın Tech • <a href="/" style="color:#2563eb;text-decoration:none;">yalintech.com</a></td>
             </tr>
           </table>
         </td>
@@ -64,13 +64,13 @@ export function approvalEmailHtml(fullName: string | null, siteUrl = '/login') {
 
 export function approvalEmailText(fullName: string | null, siteUrl = '/login') {
   const name = fullName || '';
-  return `Merhaba ${name},\n\nHesabınız yönetici tarafından onaylandı. Giriş yapmak için: ${siteUrl}\n\nTeşekkürler,\nEfkyTech`;
+  return `Merhaba ${name},\n\nHesabınız yönetici tarafından onaylandı. Giriş yapmak için: ${siteUrl}\n\nTeşekkürler,\nYalın Tech`;
 }
 
 export async function sendApprovalEmail(to: string, fullName: string | null) {
   try {
     const transporter = await createTransport();
-    const emailFrom = import.meta.env.EMAIL_FROM || `EfkyTech <no-reply@${import.meta.env.PUBLIC_SUPABASE_URL?.replace(/^https?:\/\//, '') || 'example.com'}>`;
+    const emailFrom = import.meta.env.EMAIL_FROM || `Yalın Tech <no-reply@${import.meta.env.PUBLIC_SUPABASE_URL?.replace(/^https?:\/\//, '') || 'example.com'}>`;
     const siteUrl = (import.meta.env.PUBLIC_SITE_URL as string) || '/login';
 
     const mailOptions = {
