@@ -136,7 +136,7 @@ Vercel, Astro projeleri için en kolay ve en hızlı deployment seçeneğidir.
 
 2. **astro.config.mjs'de site URL'i kontrol et:**
    ```js
-   site: 'https://efkytech.com', // Vercel/Netlify otomatik ayarlar, burayı boş bırakabilirsin
+   site: 'https://yalintech.com', // Vercel/Netlify otomatik ayarlar, burayı boş bırakabilirsin
    ```
 
 3. **Environment variables (gerekirse):**
@@ -158,13 +158,13 @@ Vercel, Astro projeleri için en kolay ve en hızlı deployment seçeneğidir.
 
 ```bash
 # 1. Git repository oluştur
-cd /Users/furkanyalin/Desktop/efkyportfoy
+cd /Users/furkanyalin/Desktop/yalintechportfoy
 git init
 git add .
 git commit -m "Initial commit"
 
 # 2. GitHub'da repository oluştur, sonra:
-git remote add origin https://github.com/KULLANICI_ADIN/efkytech-portfolio.git
+git remote add origin https://github.com/KULLANICI_ADIN/yalintech-portfolio.git
 git branch -M main
 git push -u origin main
 

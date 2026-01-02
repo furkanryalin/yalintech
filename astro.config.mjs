@@ -17,7 +17,7 @@ export default defineConfig({
       lastmod: new Date(),
     }),
   ],
-  site: 'https://efkytech.com',
+  site: 'https://yalintech.com',
   base: '/',
   // output: 'static', // Astro v5'te default, gerek yok
   adapter: vercel(), // Vercel deployment için

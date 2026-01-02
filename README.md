@@ -1,6 +1,6 @@
-# EfkyTech Portfolio Website
+# Yalın Tech Portfolio Website
 
-Modern, responsive portfolio website for EfkyTech built with Astro, TypeScript, and Tailwind CSS.
+Modern, responsive portfolio website for Yalın Tech built with Astro, TypeScript, and Tailwind CSS.
 
 **Developed by:** Furkan R. Yalın  
 **Email:** furkanyalinn@icloud.com
@@ -70,5 +70,5 @@ The contact form sends messages directly to WhatsApp. No additional configuratio
 
 ## 📄 License
 
-© 2026 EfkyTech. All rights reserved.
+© 2026 Yalın Tech. All rights reserved.
 

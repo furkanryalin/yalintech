@@ -1,9 +1,9 @@
 {
-  "name": "efkytech-portfolio",
+  "name": "yalintech-portfolio",
   "type": "module",
   "version": "1.0.0",
   "author": "Furkan R. Yalın <furkanyalinn@icloud.com>",
-  "description": "Modern portfolio website for EfkyTech built with Astro, TypeScript, and Tailwind CSS",
+  "description": "Modern portfolio website for Yalın Tech built with Astro, TypeScript, and Tailwind CSS",
   "scripts": {
     "dev": "astro dev",
     "start": "astro dev",
