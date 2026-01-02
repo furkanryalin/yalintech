@@ -52,7 +52,7 @@ export function approvalEmailHtml(fullName: string | null, siteUrl = '/login') {
               </td>
             </tr>
             <tr>
-              <td style="background:#f1f5f9;padding:14px;text-align:center;color:#94a3b8;font-size:13px;">Yalın Tech • <a href="/" style="color:#2563eb;text-decoration:none;">yalintech.com</a></td>
+              <td style="background:#f1f5f9;padding:14px;text-align:center;color:#94a3b8;font-size:13px;">Yalın Tech • <a href="/" style="color:#2563eb;text-decoration:none;">https://yalintech.vercel.app/</a></td>
             </tr>
           </table>
         </td>
