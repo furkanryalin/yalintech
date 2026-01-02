@@ -1,12 +1,19 @@
+
 import type { APIRoute } from 'astro';
 import { getSupabaseAdmin } from '../../lib/supabase';
+
+// DEBUG: Environment değişkenlerini logla
+console.log('DEBUG ENV:', {
+  PUBLIC_SUPABASE_URL: import.meta.env.PUBLIC_SUPABASE_URL,
+  PUBLIC_SUPABASE_ANON_KEY: import.meta.env.PUBLIC_SUPABASE_ANON_KEY,
+  SUPABASE_SERVICE_ROLE_KEY: import.meta.env.SUPABASE_SERVICE_ROLE_KEY,
+});
 
 export const prerender = false;
 
 export const GET: APIRoute = async () => {
   try {
     const supabase = getSupabaseAdmin();
-    
     // Get only approved comments, ordered by date
     const { data: comments, error } = await supabase
       .from('comments')
@@ -17,7 +24,6 @@ export const GET: APIRoute = async () => {
 
     if (error) {
       console.error('Database error:', error);
-      // If the comments table doesn't exist (e.g., fresh DB), return empty list instead of 500
       if ((error as any).code === 'PGRST205') {
         console.warn('Comments table missing; returning empty list for now. Create a `comments` table in your DB to enable comments.');
         return new Response(
@@ -25,9 +31,8 @@ export const GET: APIRoute = async () => {
           { status: 200, headers: { 'Content-Type': 'application/json' } }
         );
       }
-
       return new Response(
-        JSON.stringify({ error: 'Yorumlar yüklenemedi' }),
+        JSON.stringify({ error: 'Yorumlar yüklenemedi', details: error }),
         { 
           status: 500,
           headers: { 'Content-Type': 'application/json' }
@@ -44,9 +49,10 @@ export const GET: APIRoute = async () => {
     );
 
   } catch (error) {
+    // DEBUG: Hata detayını logla ve response'a ekle
     console.error('API error:', error);
     return new Response(
-      JSON.stringify({ error: 'Bir hata oluştu' }),
+      JSON.stringify({ error: 'Bir hata oluştu', details: String(error) }),
       { 
         status: 500,
         headers: { 'Content-Type': 'application/json' }
