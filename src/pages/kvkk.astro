@@ -1,18 +1,28 @@
+import Layout from '../layouts/Layout.astro';
 ---
-layout: "../layouts/Layout.astro"
----
-
-# KVKK Aydınlatma Metni
-(Burada şirketinizin KVKK kapsamındaki aydınlatma metni detaylarını ekleyin.)
-Yalın Tech olarak kişisel verilerinizin gizliliğine ve güvenliğine büyük önem veriyoruz. 6698 sayılı Kişisel Verilerin Korunması Kanunu (“KVKK”) kapsamında, web sitemizi ziyaret ettiğinizde veya hizmetlerimizden faydalandığınızda kişisel verileriniz aşağıdaki amaçlarla işlenebilir:
-
-- Hizmetlerimizin sunulması ve geliştirilmesi
-- İletişim taleplerinizin yanıtlanması
-- Yasal yükümlülüklerin yerine getirilmesi
-
-Kişisel verileriniz, KVKK’ya uygun şekilde saklanır ve üçüncü kişilerle paylaşılmaz. Dilediğiniz zaman kişisel verilerinizin işlenip işlenmediğini öğrenme, silinmesini veya düzeltilmesini talep etme hakkına sahipsiniz. Detaylı bilgi ve başvuru için bizimle iletişime geçebilirsiniz.
-
-İletişim: info@yalintech.com
-Yalın Tech olarak kişisel verilerinizin güvenliğine önem veriyoruz. KVKK kapsamında haklarınız ve detaylı bilgi için bu metni inceleyebilirsiniz.
-
-(Burada şirketinizin KVKK kapsamındaki aydınlatma metni detaylarını ekleyin.)
+<Layout title="KVKK Aydınlatma Metni" description="Kişisel verilerinizin korunmasına dair Yalın Tech'in aydınlatma metni.">
+	<div class="pt-20 pb-24 min-h-screen bg-gradient-to-b from-white via-gray-50 to-blue-50 dark:from-gray-950 dark:via-gray-900 dark:to-blue-950">
+		<section class="container mx-auto px-4 sm:px-6 lg:px-8">
+			<div class="max-w-3xl mx-auto bg-white/90 dark:bg-gray-900/90 border border-gray-200 dark:border-gray-800 rounded-2xl shadow-xl p-8 md:p-12 mt-12">
+				<h1 class="text-4xl md:text-5xl font-bold mb-6 text-blue-brand dark:text-blue-400 text-center">KVKK Aydınlatma Metni</h1>
+				<p class="text-lg text-gray-700 dark:text-gray-300 mb-6 text-center">Kişisel verilerinizin güvenliği ve gizliliği bizim için önceliklidir.</p>
+				<div class="space-y-6 text-gray-700 dark:text-gray-300 text-base leading-relaxed">
+					<p>
+						Yalın Tech olarak, 6698 sayılı Kişisel Verilerin Korunması Kanunu (“KVKK”) kapsamında kişisel verilerinizin korunmasına büyük önem veriyoruz. Web sitemizi ziyaret ettiğinizde veya hizmetlerimizden faydalandığınızda, kişisel verileriniz aşağıdaki amaçlarla işlenebilir:
+					</p>
+					<ul class="list-disc pl-6">
+						<li>Hizmetlerimizin sunulması ve geliştirilmesi</li>
+						<li>İletişim taleplerinizin yanıtlanması</li>
+						<li>Yasal yükümlülüklerin yerine getirilmesi</li>
+					</ul>
+					<p>
+						Kişisel verileriniz, KVKK’ya uygun şekilde güvenli ortamlarda saklanır ve hiçbir şekilde üçüncü kişilerle paylaşılmaz. Dilediğiniz zaman kişisel verilerinizin işlenip işlenmediğini öğrenme, silinmesini veya düzeltilmesini talep etme hakkına sahipsiniz.
+					</p>
+					<p>
+						Detaylı bilgi ve başvuru için bizimle <a href="mailto:info@yalintech.com" class="text-blue-brand underline hover:text-blue-600">info@yalintech.com</a> adresinden iletişime geçebilirsiniz.
+					</p>
+				</div>
+			</div>
+		</section>
+	</div>
+</Layout>

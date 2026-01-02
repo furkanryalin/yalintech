@@ -1,15 +1,28 @@
-
+import Layout from '../layouts/Layout.astro';
 ---
-layout: "../layouts/Layout.astro"
-title: "Gizlilik Politikası"
----
-
-# Gizlilik Politikası
-
-Yalın Tech olarak gizliliğinize büyük önem veriyoruz. Web sitemizi ziyaret ettiğinizde veya hizmetlerimizden faydalandığınızda, kişisel bilgileriniz yalnızca hizmet sunumu, iletişim ve yasal yükümlülükler kapsamında işlenir.
-
-Kişisel bilgileriniz hiçbir şekilde üçüncü şahıslarla paylaşılmaz, satılmaz veya ticari amaçlarla kullanılmaz. Bilgileriniz güvenli sunucularda saklanır ve yalnızca gerekli durumlarda erişilir.
-
-Gizlilik politikamız hakkında daha fazla bilgi almak veya taleplerinizi iletmek için bizimle iletişime geçebilirsiniz.
-
-İletişim: info@yalintech.com
+<Layout title="Gizlilik Politikası" description="Yalın Tech'in gizlilik politikası ve kişisel veri koruma taahhüdü.">
+  <div class="pt-20 pb-24 min-h-screen bg-gradient-to-b from-white via-gray-50 to-blue-50 dark:from-gray-950 dark:via-gray-900 dark:to-blue-950">
+    <section class="container mx-auto px-4 sm:px-6 lg:px-8">
+      <div class="max-w-3xl mx-auto bg-white/90 dark:bg-gray-900/90 border border-gray-200 dark:border-gray-800 rounded-2xl shadow-xl p-8 md:p-12 mt-12">
+        <h1 class="text-4xl md:text-5xl font-bold mb-6 text-blue-brand dark:text-blue-400 text-center">Gizlilik Politikası</h1>
+        <p class="text-lg text-gray-700 dark:text-gray-300 mb-6 text-center">Gizliliğiniz bizim için en yüksek önceliğe sahiptir.</p>
+        <div class="space-y-6 text-gray-700 dark:text-gray-300 text-base leading-relaxed">
+          <p>
+            Yalın Tech olarak, web sitemizi ziyaret ettiğinizde veya hizmetlerimizden faydalandığınızda kişisel bilgilerinizin gizliliğine ve güvenliğine azami özen gösteriyoruz. Toplanan bilgiler yalnızca aşağıdaki amaçlarla işlenir:
+          </p>
+          <ul class="list-disc pl-6">
+            <li>Hizmetlerimizin sunulması ve iyileştirilmesi</li>
+            <li>İletişim taleplerinizin yanıtlanması</li>
+            <li>Yasal yükümlülüklerin yerine getirilmesi</li>
+          </ul>
+          <p>
+            Kişisel bilgileriniz hiçbir şekilde üçüncü şahıslarla paylaşılmaz, satılmaz veya ticari amaçlarla kullanılmaz. Bilgileriniz güvenli sunucularda saklanır ve yalnızca yetkili kişiler tarafından erişilir.
+          </p>
+          <p>
+            Gizlilik politikamız hakkında daha fazla bilgi almak veya taleplerinizi iletmek için bizimle <a href="mailto:info@yalintech.com" class="text-blue-brand underline hover:text-blue-600">info@yalintech.com</a> adresinden iletişime geçebilirsiniz.
+          </p>
+        </div>
+      </div>
+    </section>
+  </div>
+</Layout>
